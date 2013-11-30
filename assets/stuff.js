@@ -5,7 +5,7 @@ $(function() {
   return setGrid();
 });
 
-$.getJSON('http://localhost:4000/emojis.json', function(emojis, s) {
+$.getJSON('emojis.json', function(emojis, s) {
   return $.each(emojis, function(name, keywords) {
     var emoji;
     emoji = ':' + name + ':';

@@ -1,6 +1,6 @@
 $ -> setGrid()
 
-$.getJSON 'http://localhost:4000/emojis.json', (emojis, s) ->
+$.getJSON 'emojis.json', (emojis, s) ->
   $.each emojis, (name, keywords) ->
     emoji = ':'+name+':'
     $('.emojis').append("<div class='emoji' data-keywords='#{keywords}'><img alt='#{emoji}' title='#{emoji}' src='/emojis/#{name}.png'>#{emoji}</div>")
