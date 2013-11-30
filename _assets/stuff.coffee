@@ -1,9 +1,9 @@
 $ -> setGrid()
 
-$.getJSON 'https://api.github.com/emojis', (emojis) ->
-  $.each emojis, (i, emoji) ->
-    name = ':'+i+':'
-    $('.emojis').append("<div class='emoji'><img alt='#{name}' title='#{name}' src='#{emojis[i]}'>#{name}</div>")
+$.getJSON 'http://localhost:4000/emojis.json', (emojis, s) ->
+  $.each emojis, (name, keywords) ->
+    emoji = ':'+name+':'
+    $('.emojis').append("<div class='emoji' data-keywords='#{keywords}'><img alt='#{emoji}' title='#{emoji}' src='/emojis/#{name}.png'>#{emoji}</div>")
 
 $(document).on 'focus', '[autocomplete="emojis"]', ->
   $(document).off 'click', '.emoji'
@@ -21,7 +21,7 @@ $(document).on 'focus', '[autocomplete="emojis"]', ->
 $(document).on 'keyup', '[autocomplete="emojis"]', ->
   regexp = new RegExp $(this).val()
   $('.emoji').map (_, e) ->
-    alt = $(e).find('img').attr('alt')
+    alt = "#{$(e).find('img').attr('alt')} #{$(e).data('keywords')}"
     unless alt.match(regexp)
       $(e).hide()
     else

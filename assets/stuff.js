@@ -5,11 +5,11 @@ $(function() {
   return setGrid();
 });
 
-$.getJSON('https://api.github.com/emojis', function(emojis) {
-  return $.each(emojis, function(i, emoji) {
-    var name;
-    name = ':' + i + ':';
-    return $('.emojis').append("<div class='emoji'><img alt='" + name + "' title='" + name + "' src='" + emojis[i] + "'>" + name + "</div>");
+$.getJSON('http://localhost:4000/emojis.json', function(emojis, s) {
+  return $.each(emojis, function(name, keywords) {
+    var emoji;
+    emoji = ':' + name + ':';
+    return $('.emojis').append("<div class='emoji' data-keywords='" + keywords + "'><img alt='" + emoji + "' title='" + emoji + "' src='/emojis/" + name + ".png'>" + emoji + "</div>");
   });
 });
 
@@ -34,7 +34,7 @@ $(document).on('keyup', '[autocomplete="emojis"]', function() {
   regexp = new RegExp($(this).val());
   return $('.emoji').map(function(_, e) {
     var alt;
-    alt = $(e).find('img').attr('alt');
+    alt = "" + ($(e).find('img').attr('alt')) + " " + ($(e).data('keywords'));
     if (!alt.match(regexp)) {
       return $(e).hide();
     } else {
