@@ -2,6 +2,12 @@
 
 ![megamoji-maker](https://f.cloud.github.com/assets/1153134/1647961/f8fb6ea0-595e-11e3-8082-05973ab2c5c8.gif)
 
+## TODO
+
+- [ ] A better autocomplete thing that works with keyboard shortcuts
+- [ ] Keyword search(?)
+- [ ] Modulize autocompletion
+
 :leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves:<br />
 :leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::sheep::sheep::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves:<br />
 :leaves::leaves::leaves::leaves::leaves::leaves::leaves::sheep::sheep::sheep::sheep::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves:<br />
