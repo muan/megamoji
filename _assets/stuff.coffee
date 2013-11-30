@@ -53,17 +53,30 @@ $(document).on 'click', '#set-grid', ->
   setGrid()
 
 $(document).on 'click', '#output', ->
+  as_hubot_script = $(this).data('code') == 'hubot'
+  as_emojis = $(this).data('code') == 'emoji'
   emojis = []
   output = ""
-  $('.preview-canvas img').map (_, img) =>
-    emoji = '\'' + $(img).attr('title') + '\''
-    emojis.push(emoji) unless emojis.indexOf(emoji) >= 0
-    output += emojis.indexOf(emoji)
-    if (_ + 1)%20 == 0
-      output += "|"
+  cols = parseInt $('#cols').val()
 
-  output = output.slice 0, output.length-1 # remove last bar
-  $('.output').html "\"#{window.target_emoji}\": {<br/>&nbsp;&nbsp;emoji: [ #{emojis.join(", ")} ]<br/>&nbsp;&nbsp;pattern: \"#{output}\"<br/>}"
+  $('.preview-canvas img').map (_, img) =>
+    if as_hubot_script
+      emoji = '\'' + $(img).attr('title') + '\'' 
+      emojis.push(emoji) unless emojis.indexOf(emoji) >= 0
+      output += emojis.indexOf(emoji)
+    else if as_emojis
+      emoji = $(img).attr('title')
+      output += emoji
+    if (_ + 1)%cols == 0
+      if as_hubot_script
+        output += "|"
+      else if as_emojis
+        output += "<br />"
+
+  if as_hubot_script
+    output = output.slice 0, output.length-1 # remove last bar
+    output = "\"#{window.target_emoji}\": {<br/>&nbsp;&nbsp;emoji: [ #{emojis.join(", ")} ]<br/>&nbsp;&nbsp;pattern: \"#{output}\"<br/>}"
+  $('.output').html output
 
 $(document).on 'click', '[id*="edit-"]', ->
   num = this.id.split('-')[1]

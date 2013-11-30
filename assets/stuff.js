@@ -77,23 +77,38 @@ $(document).on('click', '#set-grid', function() {
 });
 
 $(document).on('click', '#output', function() {
-  var emojis, output,
+  var as_emojis, as_hubot_script, cols, emojis, output,
     _this = this;
+  as_hubot_script = $(this).data('code') === 'hubot';
+  as_emojis = $(this).data('code') === 'emoji';
   emojis = [];
   output = "";
+  cols = parseInt($('#cols').val());
   $('.preview-canvas img').map(function(_, img) {
     var emoji;
-    emoji = '\'' + $(img).attr('title') + '\'';
-    if (!(emojis.indexOf(emoji) >= 0)) {
-      emojis.push(emoji);
+    if (as_hubot_script) {
+      emoji = '\'' + $(img).attr('title') + '\'';
+      if (!(emojis.indexOf(emoji) >= 0)) {
+        emojis.push(emoji);
+      }
+      output += emojis.indexOf(emoji);
+    } else if (as_emojis) {
+      emoji = $(img).attr('title');
+      output += emoji;
     }
-    output += emojis.indexOf(emoji);
-    if ((_ + 1) % 20 === 0) {
-      return output += "|";
+    if ((_ + 1) % cols === 0) {
+      if (as_hubot_script) {
+        return output += "|";
+      } else if (as_emojis) {
+        return output += "<br />";
+      }
     }
   });
-  output = output.slice(0, output.length - 1);
-  return $('.output').html("\"" + window.target_emoji + "\": {<br/>&nbsp;&nbsp;emoji: [ " + (emojis.join(", ")) + " ]<br/>&nbsp;&nbsp;pattern: \"" + output + "\"<br/>}");
+  if (as_hubot_script) {
+    output = output.slice(0, output.length - 1);
+    output = "\"" + window.target_emoji + "\": {<br/>&nbsp;&nbsp;emoji: [ " + (emojis.join(", ")) + " ]<br/>&nbsp;&nbsp;pattern: \"" + output + "\"<br/>}";
+  }
+  return $('.output').html(output);
 });
 
 $(document).on('click', '[id*="edit-"]', function() {
