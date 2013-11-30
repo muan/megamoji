@@ -35,7 +35,7 @@ $(document).on 'change', '#target_emoji', ->
   window.target_emoji = $(this).val()
   $('.canvas').css 'background-image', "url(#{img.attr('src')})"
 
-# drag and drop!
+# drag
 $(document).on 'mousedown', '.cell', (e) ->
   markSelected $(e.target)
   $(document).on 'mouseover', '.cell', (e) ->
@@ -43,7 +43,7 @@ $(document).on 'mousedown', '.cell', (e) ->
 
 $(document).on 'mouseup', '.cell', (e) ->
   $(document).off 'mouseover', '.cell'
-# drag and drop!
+# drag
 
 $(document).on 'click', '#set-number', ->
   return false if $('.cell.selected').length == 0
