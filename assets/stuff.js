@@ -16,6 +16,7 @@ $.getJSON('https://api.github.com/emojis', function(emojis) {
 $(document).on('focus', '[autocomplete="emojis"]', function() {
   var dropdown, input;
   $(document).off('click', '.emoji');
+  $('.emoji').show();
   dropdown = $('.emojis');
   dropdown.css('top', $(this).offset().top + $(this).outerHeight() + 'px');
   dropdown.css('left', $(this).offset().left);
