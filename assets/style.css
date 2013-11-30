@@ -11,14 +11,14 @@ a {
   color: #48a; }
 
 b, strong, h1, h2, h3, h4, h5 {
-  font-weight: 500; }
+  font-weight: bold; }
 
 hr {
   border: 0;
-  border-bottom: 1px solid #ddd;
-  border-top: 1px solid #ddd;
-  margin: 20px 0;
-  height: 6px; }
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  height: 0;
+  margin: 10px 0; }
 
 header {
   text-align: center; }
@@ -30,6 +30,14 @@ header {
 
 .target-emoji {
   padding: 10px 0; }
+
+.step {
+  margin: 5px 0;
+  text-transform: uppercase;
+  font-size: 15px; }
+
+.inline {
+  display: inline-block !important; }
 
 .emojis {
   display: none;
@@ -56,11 +64,13 @@ header {
   color: #fff;
   font-size: 14px;
   right: 0;
-  width: 280px;
+  width: 350px;
   top: 0;
   padding: 20px;
   font-weight: bold;
   position: fixed; }
+  .ctrls hr {
+    margin: 15px -20px; }
 
 input[type='text'], button {
   font-size: 13px;
@@ -71,6 +81,7 @@ input[type='text'], button {
   border: 0; }
 
 input[type='text'] {
+  padding: 7px 9px;
   border: 1px solid #ddd;
   display: block; }
   input[type='text'].short {
@@ -90,9 +101,7 @@ button {
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.4);
   color: #fff;
   display: inline-block;
-  margin-top: 10px;
   text-transform: uppercase;
-  margin-bottom: 15px;
   cursor: pointer; }
   button:active {
     background-color: #444444;

@@ -19,31 +19,46 @@
   </head>
   <body>
     <div class="ctrls">
-      Rows<br />
-      <input type="text" id="rows" value="20" class="short" /><br />
-      Cols<br />
-      <input type="text" id="cols" value="20" class="short" /><br />
+
+      <h3 class="step inline">1.</h3>
+      Rows
+      <input type="text" id="rows" value="20" class="short" />
+      Cols
+      <input type="text" id="cols" value="20" class="short" />
       <button id="set-grid">Set grid</button>
 
-      <br />
-      <input type="hidden" id="number" value="0" />
-      <button id="set-number">Create set</button>
+      <hr />
+      <h3 class="step">2. choose an emoji as reference</h3>
+      <input type="text" id="target_emoji" class="inline" placeholder=":sheep:" autocomplete="emojis" />
+
+      <hr />
+      <h3 class="step inline">3.</h3>
+      <button id="set-number">Create set from selection</button>
+      <input type="hidden" id="number" value="0" /><br />
+      or <button id="reset">Reset Selection</button>
+
+      <hr />
+      <h3 class="step">4. assign emoji</h3>
+
       <div class="set-emojis">
         BLANK SPACE
         <input type='text' id='emoji-none' autocomplete='emojis' value=':white_large_square:' /><br />
       </div>
+
+      <hr />
+      <h3 class="step inline">5.</h3>
+
       <button id="preview">Preview</button>
-      <button id="output">Output</button>
+
+      <hr />
+      <h3 class="step inline">6.</h3>
+
+      <button id="output">Output script</button>
     </div>
 
     <div class="emojis"></div>
 
     <div class="wrapper">
-      <div class="target-emoji">
-        <input type="text" id="target_emoji" placeholder=":sheep:" autocomplete="emojis" />
-        <button id="reset">Reset Selection</button>
-      </div>
-
       <div class="canvas">
         <div class="grid">
         </div>
