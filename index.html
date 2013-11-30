@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Megamoji</title>
+    <link href="/images/fav.png" rel="shortcut icon">
+    <link href="/assets/global.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/style.css" rel="stylesheet" type="text/css" />
+    <!-- - -->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="/assets/stuff.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <!-- - -->
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta content="" property="og:title" />
+    <meta content="" property="og:image" />
+    <meta content="" property="og:url" />
+    <meta content="" property="og:description" />
+  </head>
+  <body>
+    <div class="ctrls">
+      Rows<br />
+      <input type="text" id="rows" value="20" class="short" /><br />
+      Cols<br />
+      <input type="text" id="cols" value="20" class="short" /><br />
+      <button id="set-grid">Set grid</button>
+
+      <br />
+      <input type="hidden" id="number" value="0" />
+      <button id="set-number">Create set</button>
+      <div class="set-emojis">
+        BLANK SPACE
+        <input type='text' id='emoji-none' autocomplete='emojis' value=':white_large_square:' /><br />
+      </div>
+      <button id="preview">Preview</button>
+      <button id="output">Output</button>
+    </div>
+
+    <div class="emojis"></div>
+
+    <div class="wrapper">
+      <div class="target-emoji">
+        <input type="text" id="target_emoji" placeholder=":sheep:" autocomplete="emojis" />
+        <button id="reset">Reset Selection</button>
+      </div>
+
+      <div class="canvas">
+        <div class="grid">
+        </div>
+      </div>
+
+      <div class="preview-canvas"></div>
+      <div class="output"></div>
+    </div>
+
+
+  </body>
+</html>
