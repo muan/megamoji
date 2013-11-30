@@ -4,9 +4,9 @@
 
 ## TODO
 
--[ ] A better autocomplete thing that works with keyboard shortcuts
--[ ] Keyword search(?)
--[ ] Modulize autocompletion
+- A better autocomplete thing that works with keyboard shortcuts
+- Keyword search(?)
+- Modulize autocompletion
 
 :leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves:<br />
 :leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::sheep::sheep::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves:<br />
