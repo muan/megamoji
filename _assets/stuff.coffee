@@ -18,6 +18,9 @@ $(document).on 'focus', '[autocomplete="emojis"]', ->
     dropdown.hide()
   dropdown.show()
 
+$(document).on 'keyup', '#selection-color, #selection-opacity', ->
+  $('style').html ".cell.selected { background-color: rgba(#{$('#selection-color').val()}, #{$('#selection-opacity').val()}); }"
+
 $(document).on 'keyup', '[autocomplete="emojis"]', ->
   regexp = new RegExp $(this).val()
   $('.emoji').map (_, e) ->
