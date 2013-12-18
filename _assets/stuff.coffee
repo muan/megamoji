@@ -38,6 +38,14 @@ $(document).on 'change', '#target_emoji', ->
   window.target_emoji = $(this).val()
   $('.canvas').css 'background-image', "url(#{img.attr('src')})"
 
+$ ->
+
+$(document).on 'change', '#target_emoji_from_file', ->
+  reader = new FileReader()
+  reader.onload = (e) ->
+    $('.canvas').css 'background-image', "url(#{e.target.result})"
+  reader.readAsDataURL this.files[0]
+
 # drag
 $(document).on 'mousedown', '.cell', (e) ->
   markSelected $(e.target)

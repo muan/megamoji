@@ -58,6 +58,17 @@ $(document).on('change', '#target_emoji', function() {
   return $('.canvas').css('background-image', "url(" + (img.attr('src')) + ")");
 });
 
+$(function() {});
+
+$(document).on('change', '#target_emoji_from_file', function() {
+  var reader;
+  reader = new FileReader();
+  reader.onload = function(e) {
+    return $('.canvas').css('background-image', "url(" + e.target.result + ")");
+  };
+  return reader.readAsDataURL(this.files[0]);
+});
+
 $(document).on('mousedown', '.cell', function(e) {
   markSelected($(e.target));
   return $(document).on('mouseover', '.cell', function(e) {
