@@ -68,7 +68,7 @@ header {
   top: 0;
   padding: 20px;
   font-weight: bold;
-  position: fixed; }
+  position: absolute; }
   .ctrls hr {
     margin: 15px -20px; }
 
