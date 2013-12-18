@@ -18,13 +18,15 @@
     <style id="#style"></style>
   </head>
   <body>
+    <input id="toggle" type="checkbox" />
     <div class="ctrls">
-
+      <label for="toggle" class="toggle"></label>
       <h3 class="step inline">1.</h3>
-      Rows
-      <input type="text" id="rows" value="20" class="short" />
-      Cols
-      <input type="text" id="cols" value="20" class="short" />
+      <input type="number" step="1" min="1" id="rows" value="20" class="short" />
+      rows
+      x
+      <input type="number" step="1" min="1" id="cols" value="20" class="short" />
+      cols<br />
       <button id="set-grid">Set grid</button>
 
       <hr />
@@ -61,8 +63,9 @@
 
     <div class="wrapper">
       Selected area color: 
-        <input type="text" value="255, 0, 0" id="selection-color" class="inline" />
-        <input type="text" value="0.5" id="selection-opacity" class="inline" />
+      <input type="text" value="255, 0, 0" id="selection-color" class="inline" />
+      <input type="number" step="0.1" min="0" max="1" value="0.5" id="selection-opacity" class="inline" />
+      <br />
       <div class="canvas">
         <div class="grid">
         </div>

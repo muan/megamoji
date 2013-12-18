@@ -29,7 +29,7 @@ $(document).on('focus', '[autocomplete="emojis"]', function() {
   return dropdown.show();
 });
 
-$(document).on('keyup', '#selection-color, #selection-opacity', function() {
+$(document).on('keyup change', '#selection-color, #selection-opacity', function() {
   return $('style').html(".cell.selected { background-color: rgba(" + ($('#selection-color').val()) + ", " + ($('#selection-opacity').val()) + "); }");
 });
 

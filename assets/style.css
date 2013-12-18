@@ -59,7 +59,15 @@ header {
     .emojis .emoji:hover {
       font-weight: bold; }
 
+#toggle:checked + .ctrls {
+  right: -335px; }
+
 .ctrls {
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
   background: #333;
   color: #fff;
   font-size: 14px;
@@ -68,11 +76,13 @@ header {
   top: 0;
   padding: 20px;
   font-weight: bold;
-  position: absolute; }
+  position: absolute;
+  height: 100%;
+  overflow: scroll; }
   .ctrls hr {
     margin: 15px -20px; }
 
-input[type='text'], button {
+input[type='text'], input[type='number'], button {
   font-size: 13px;
   padding: 9px;
   line-height: 1em;
@@ -80,11 +90,11 @@ input[type='text'], button {
   font-weight: bold;
   border: 0; }
 
-input[type='text'] {
+input[type='text'], input[type='number'] {
   padding: 7px 9px;
   border: 1px solid #ddd;
   display: block; }
-  input[type='text'].short {
+  input[type='text'].short, input[type='number'].short {
     width: 50px;
     display: inline-block; }
 
@@ -154,6 +164,20 @@ button {
     margin: 0; }
   .preview-canvas:empty + #output {
     display: none; }
+
+input#toggle {
+  position: absolute;
+  top: -20px; }
+
+.toggle {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 6px;
+  background-color: #888;
+  cursor: pointer; }
 
 [data-number] {
   position: relative;
