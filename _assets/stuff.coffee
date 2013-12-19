@@ -48,9 +48,10 @@ $(document).on 'change', '#target_emoji_from_file', ->
 
 # drag
 $(document).on 'mousedown', '.cell', (e) ->
-  markSelected $(e.target)
+  boolean = !$(e.target).hasClass('selected')
+  markSelected $(e.target), boolean
   $(document).on 'mouseover', '.cell', (e) ->
-    markSelected $(e.target)
+    markSelected $(e.target), boolean
 
 $(document).on 'mouseup', '.cell', (e) ->
   $(document).off 'mouseover', '.cell'
@@ -118,7 +119,6 @@ setGrid = ->
   cols = parseInt $('#cols').val()
   grid = $('.grid')
   wrapper_width = grid.width()
-  console.log wrapper_width
   cell_size = wrapper_width/cols
   $('.preview-canvas').attr 'data-size', cell_size
   grid.html ''
@@ -130,8 +130,9 @@ Number::times = (fn) ->
   do fn for [1..@valueOf()]
   return
   
-markSelected = (ele) ->
-  ele.toggleClass 'selected' unless !!(ele.attr 'data-number')
+markSelected = (ele, toggle) ->
+  toggle ?= true
+  ele.toggleClass('selected', toggle) unless !!(ele.attr 'data-number')
 
 setNumber = (num)->
   num ||= parseInt $("#number").val()

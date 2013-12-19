@@ -70,9 +70,11 @@ $(document).on('change', '#target_emoji_from_file', function() {
 });
 
 $(document).on('mousedown', '.cell', function(e) {
-  markSelected($(e.target));
+  var boolean;
+  boolean = !$(e.target).hasClass('selected');
+  markSelected($(e.target), boolean);
   return $(document).on('mouseover', '.cell', function(e) {
-    return markSelected($(e.target));
+    return markSelected($(e.target), boolean);
   });
 });
 
@@ -162,7 +164,6 @@ setGrid = function() {
   cols = parseInt($('#cols').val());
   grid = $('.grid');
   wrapper_width = grid.width();
-  console.log(wrapper_width);
   cell_size = wrapper_width / cols;
   $('.preview-canvas').attr('data-size', cell_size);
   grid.html('');
@@ -179,9 +180,12 @@ Number.prototype.times = function(fn) {
   }
 };
 
-markSelected = function(ele) {
+markSelected = function(ele, toggle) {
+  if (toggle == null) {
+    toggle = true;
+  }
   if (!(ele.attr('data-number'))) {
-    return ele.toggleClass('selected');
+    return ele.toggleClass('selected', toggle);
   }
 };
 
