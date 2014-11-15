@@ -13,7 +13,7 @@ function loadEmojis () {
 }
 
 // Emoji auto complete
-$(document).on('focus', '[autocomplete="emojis"]', function () {
+$(document).on('focus', '.js-auto-emoji', function () {
   $(document).off('click', '.emoji')
   $('.emoji').show()
 
@@ -36,7 +36,7 @@ $(document).on('keyup change', '#selection-color, #selection-opacity', function 
   $('style').html(".cell.selected { background-color: rgba(" + $('#selection-color').val() + ", " + $('#election-opacity').val() + "); }")
 })
 
-$(document).on('keyup', '[autocomplete="emojis"]', function () {
+$(document).on('keyup', '.js-auto-emoji', function () {
   var regexp = new RegExp($(this).val())
   $('.emoji').map(function (_, e) {
     var alt = $(e).find('img').attr('alt') + ' ' + $(e).data('keywords')
