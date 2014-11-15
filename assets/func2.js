@@ -30,6 +30,8 @@ $(document).on('selected', '.js-set-emoji-background', function() {
   setEmojiBackground($('.grid'), $(this).val())
 })
 
+$(document).on('click', '.js-reset', resetAll)
+
 $(document).on('change', '.js-set-file-background', function () {
   var reader = new FileReader()
   reader.onload = function (e) {
@@ -60,7 +62,6 @@ function setGrid () {
   for(i=0; i < (cols*rows); i++) {
     grid.append("<div class='cell' style='width: " + cellSize + "px; height: " + cellSize + "px;'>")
   }
-  // resetAll()
 }
 
 function markSelected (ele, toggle) {
@@ -76,7 +77,11 @@ function markSelected (ele, toggle) {
 }
 
 // helpers
-function setEmojiBackground(target, emoji) {
+function setEmojiBackground (target, emoji) {
   var emoji = emoji.replace(/:/g, '')
   target.css('background-image', 'url("emojis/' + emoji + '.png")')
+}
+
+function resetAll () {
+  $('.cell.painted').css('background-image', 'none').removeClass('painted')
 }
