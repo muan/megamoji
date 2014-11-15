@@ -16,10 +16,10 @@ b, strong, h1, h2, h3, h4, h5 {
   font-weight: bold;
 }
 
-hr { 
-  border: 0; 
-  border-top: 1px solid rgba(255, 255, 255, .3); 
-  border-bottom: 1px solid rgba(0, 0, 0, .5); 
+hr {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, .3);
+  border-bottom: 1px solid rgba(0, 0, 0, .5);
   height: 0;
   margin: 10px 0;
 }
@@ -46,24 +46,6 @@ header { text-align: center; }
   display: inline-block !important;
 }
 
-.emojis {
-  display: none;
-  background: #fff;
-  position: absolute;
-  max-height: 300px;
-  overflow: scroll;
-  width: 260px;
-  border: 1px solid #ddd;
-  margin-top: 3px;
-  .emoji { 
-    padding: 5px;
-    border-radius: 3px;
-    border-bottom: 1px solid #ddd;
-    img { width: 20px; margin-right: 5px; vertical-align: middle; }
-    &:hover { font-weight: bold; }
-  }
-}
-
 #toggle:checked + .ctrls {
   right: -335px;
 }
@@ -78,9 +60,6 @@ header { text-align: center; }
   top: 0;
   padding: 20px;
   font-weight: bold;
-  position: absolute;
-  height: 100%;
-  overflow: scroll;
   hr { margin: 15px -20px }
 }
 
@@ -131,16 +110,16 @@ button {
   background-size: cover;
 }
 
-.cell { 
-  cursor: pointer;  
-  display: inline-block; 
+.cell {
+  cursor: pointer;
+  display: inline-block;
   border: 1px solid #eee;
   &.selected {
     background-color: rgba(255, 0, 0, .3)
   }
 }
 
-.output { 
+.output {
   border: 1px solid #ddd;
   background-color: #f9f9f9;
   font-family: monospace;
@@ -161,7 +140,7 @@ button {
   vertical-align: top;
   line-height: 0;
   img { margin: 0; }
-  &:empty + #output { display: none; }
+  &:empty + .js-output-script { display: none; }
 }
 
 input#toggle {

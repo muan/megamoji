@@ -39,26 +39,6 @@ header {
 .inline {
   display: inline-block !important; }
 
-.emojis {
-  display: none;
-  background: #fff;
-  position: absolute;
-  max-height: 300px;
-  overflow: scroll;
-  width: 260px;
-  border: 1px solid #ddd;
-  margin-top: 3px; }
-  .emojis .emoji {
-    padding: 5px;
-    border-radius: 3px;
-    border-bottom: 1px solid #ddd; }
-    .emojis .emoji img {
-      width: 20px;
-      margin-right: 5px;
-      vertical-align: middle; }
-    .emojis .emoji:hover {
-      font-weight: bold; }
-
 #toggle:checked + .ctrls {
   right: -335px; }
 
@@ -75,10 +55,7 @@ header {
   width: 350px;
   top: 0;
   padding: 20px;
-  font-weight: bold;
-  position: absolute;
-  height: 100%;
-  overflow: scroll; }
+  font-weight: bold; }
   .ctrls hr {
     margin: 15px -20px; }
 
@@ -162,7 +139,7 @@ button {
   line-height: 0; }
   .preview-canvas img {
     margin: 0; }
-  .preview-canvas:empty + #output {
+  .preview-canvas:empty + .js-output-script {
     display: none; }
 
 input#toggle {
