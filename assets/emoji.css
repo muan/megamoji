@@ -1,0 +1,19 @@
+.emoji-container {
+  display: none;
+  background: #fff;
+  position: absolute;
+  max-height: 300px;
+  overflow: scroll;
+  width: 260px;
+  border: 1px solid #ddd;
+  margin-top: 3px; }
+  .emoji-container .emoji {
+    padding: 5px;
+    border-radius: 3px;
+    border-bottom: 1px solid #ddd; }
+    .emoji-container .emoji img {
+      width: 20px;
+      margin-right: 5px;
+      vertical-align: middle; }
+    .emoji-container .emoji:hover {
+      font-weight: bold; }

@@ -1,0 +1,78 @@
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box; }
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px; }
+
+input[type=number],
+input[type=text],
+button {
+  padding: 8px 10px;
+  border: 0;
+  background: #f0f0f0; }
+
+input[type=number].short,
+input[type=text].short {
+  width: 60px; }
+
+button {
+  font-weight: bold;
+  margin-right: 15px; }
+  button.primary {
+    color: #fff;
+    background: #29b666; }
+
+.tools {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0; }
+
+.tool-set {
+  margin-right: 15px;
+  display: inline-block;
+  position: relative; }
+
+.paint-preview {
+  background-size: 15px 15px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  background-color: #fff;
+  padding: 15px;
+  line-height: 0; }
+
+.grid {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  margin: auto;
+  overflow: hidden;
+  width: 400px;
+  padding-bottom: 1px;
+  line-height: 0; }
+
+.row {
+  font-size: 0;
+  height: 15px; }
+
+.cell {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #e0e0e0;
+  margin: 0 -1px -1px 0; }
+  .cell:hover {
+    z-index: 1;
+    border-color: #c0c0c0; }
+  .cell.painted {
+    background-color: rgba(255, 255, 255, 0.3);
+    background-size: cover; }
