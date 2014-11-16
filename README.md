@@ -1,8 +1,8 @@
 # MEGAMOJI MAKER
 
-![megamoji-maker](https://f.cloud.github.com/assets/1153134/1647961/f8fb6ea0-595e-11e3-8082-05973ab2c5c8.gif)
+![poop](https://cloud.githubusercontent.com/assets/1153134/5061014/bce4d85a-6d32-11e4-9166-7f1ede0e5f0f.gif)
 
-![doge1](https://f.cloud.github.com/assets/1153134/1773600/fee9159c-67eb-11e3-8715-cf7f2511eac2.gif)
+![doge demo](https://cloud.githubusercontent.com/assets/1153134/5060927/e5c8eb36-6d2c-11e4-9aba-256291dc4809.gif)
 
 ![doge](https://f.cloud.github.com/assets/1153134/1773595/df14deb8-67eb-11e3-8197-f7978d514309.png)
 
