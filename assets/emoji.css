@@ -8,6 +8,7 @@
   border: 1px solid #ddd;
   margin-top: 3px; }
   .emoji-container .emoji {
+    cursor: pointer;
     padding: 5px;
     border-radius: 3px;
     border-bottom: 1px solid #ddd; }

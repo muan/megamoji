@@ -1,11 +1,9 @@
-@import "bourbon/bourbon";
-
 $background: #fff;
 
 h1, h2, h3, h4, h5, strong, b, .bold { font-weight: 400; }
 html, body { height: 100%; }
-body { 
-  &, * { -webkit-font-smoothing: antialiased; @include box-sizing(border-box); }
+body {
+  &, * { -webkit-font-smoothing: antialiased; }
   background: $background;
   color: #444;
   font-family: sans-serif;

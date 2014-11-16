@@ -1,123 +1,134 @@
 $(document).on('ready', function() {
   setGrid()
-})
-
-$(document).on('click', '.js-reset-selection', function() {
-  $('.cell.selected').removeClass('selected')
+  setEmojiPaint($('.js-paint').val())
 })
 
 // drag
 $(document).on('mousedown', '.cell', function (e) {
-  boolean = !$(e.target).hasClass('selected')
+  boolean = !$(e.target).hasClass('painted')
   markSelected($(e.target), boolean)
   $(document).on('mouseover', '.cell', function (e) {
     markSelected($(e.target), boolean)
   })
 })
 
-// drag
+// drop
 $(document).on('mouseup', '.cell', function (e) {
   $(document).off('mouseover', '.cell')
 })
 
-$(document).on('click', '.js-save-selection', function () {
-  if($('.cell.selected').length === 0) return false
-  setNumber()
-})
-
-$(document).on('click', '.js-change-grid', function () {
+$(document).on('change', '.js-grid-rows, .js-grid-cols', function() {
   setGrid()
 })
 
-$(document).on('click', '.js-output-script', function () {
-  var as_hubot_script = $(this).data('code') === 'hubot'
-  var as_emojis = $(this).data('code') === 'emoji'
-  var emojis = []
-  var output = ""
-  var cols = Number($('.js-cols').val())
+// select an emoji as paint
+$(document).on('selected', '.js-paint', function () {
+  setEmojiPaint($(this).val())
+})
 
-  $('.preview-canvas img').map(function (i, img) {
-    if(as_hubot_script) {
-      emoji = '\'' + $(img).attr('title') + '\''
-      if( emojis.indexOf(emoji) < 0) { emojis.push(emoji) }
-      output += emojis.indexOf(emoji)
-    } else if(as_emojis) {
-      emoji = $(img).attr('title')
-      output += emoji
-    }
-    if((i + 1)%cols === 0) {
-      if(as_hubot_script) {
-        output += "|"
-      } else if(as_emojis) {
-        output += "<br />"
-      }
-    }
-  })
+$(document).on('selected', '.js-set-emoji-background', function() {
+  setEmojiBackground($('.grid'), $(this).val())
+})
 
-  if(as_hubot_script) {
-    output = output.slice(0, output.length-1) // remove last bar
-    output = "\"" + window.target_emoji + "\": {<br/>&nbsp;&nbsp;emoji: [ " + emojis.join(", ") + " ]<br/>&nbsp;&nbsp;pattern: \"" + output + "\"<br/>}"
+$(document).on('click', '.js-reset', resetAll)
+
+$(document).on('change', '.js-set-file-background', function () {
+  var reader = new FileReader()
+  reader.onload = function (e) {
+    $('.grid').css('background-image', 'url("' + e.target.result + '")')
   }
-  $('.output').html(output)
+  reader.readAsDataURL(this.files[0])
 })
 
-$(document).on('click', '[id*="edit-"]', function () {
-  var num = this.id.split('-')[1]
-  $('.cell').filter("[data-number='" + num + "']").addClass('selected').attr('data-number', '')
-  $(".set-" + num).remove()
+$(document).on('click', '.js-output-script', function() {
+  generateScript()
+  toggleFacebox(true)
 })
 
-$(document).on('click', '#preview', function () {
-  var preview = $('.preview-canvas')
-  preview.html('')
-  var width = preview.attr('data-size')
-
-  $('.cell').map(function (i, ele) {
-    var cols = Number($('.js-cols').val())
-    var num = $(ele).attr('data-number') ? $(ele).attr('data-number') : 'none'
-    var emoji = $("#emoji-" + num).val()
-    var img_url = $("[title='"+ emoji +"']").attr('src')
-    var html = "<img src='" + img_url + "' title='" + emoji + "' width='" + width + "' />"
-    preview.append(html)
-    if((i+1)%cols === 0) {
-      preview.append("<br>")
-    }
-  })
+$(document).on('click', '.backdrop', function() {
+  toggleFacebox(false)
 })
 
-function resetAll () {
-  $("#number").val(0)
-  $("[id*='emoji-'").not("#emoji-none").remove()
+function setEmojiPaint (emoji) {
+  var emoji = emoji.replace(/:/g, '')
+  $('.js-paint-preview').css('background-image', 'url("emojis/' + emoji + '.png")')
 }
 
 function setGrid () {
-  var rows = Number($('.js-rows').val())
-  var cols = Number($('.js-cols').val())
-  var grid = $('.grid')
-  var wrapper_width = grid.width()
-  var cell_size = wrapper_width/cols
-  $('.preview-canvas').attr('data-size', cell_size)
+  if($('.cell.painted').length > 0) {
+    if(!confirm('Resetting the grid will clear the canvas, are you sure?')) {
+      return
+    }
+  }
+
+  var rows = Number($('.js-grid-rows').val())
+  var cols = Number($('.js-grid-cols').val())
+  var grid = $('.js-grid')
+  var gridWidth = grid.width()
+  var cellSize = gridWidth/cols
   grid.html('')
 
   for(i=0; i < (cols*rows); i++) {
-    grid.append("<div class='cell' style='width: " + cell_size + "px; height: " + cell_size + "px;'>")
+    cell = $("<div class='cell' data-emoji=':white_large_square:' style='width: " + cellSize + "px; height: " + cellSize + "px;'>")
+    setEmojiBackground(cell, 'white_large_square')
+    grid.append(cell)
   }
-  resetAll()
 }
-
 
 function markSelected (ele, toggle) {
   if(typeof toggle === 'undefined') { var toggle = true }
-  if(!ele.attr('data-number')) {
-    ele.toggleClass('selected', toggle)
+
+  if(toggle) {
+    var emoji = $('.js-paint').val()
+    ele.addClass('painted')
+    ele.attr('data-emoji', emoji)
+    setEmojiBackground(ele, emoji)
+  } else {
+    ele.attr('data-emoji', ':white_large_square:').removeClass('painted')
+    setEmojiBackground(ele, 'white_large_square')
   }
 }
 
-function setNumber (num) {
-  var num = Number($(".js-set-id").val())
+function generateScript () {
+  var tmpEmojis   = []
+  var tmpPattern  = ''
+  var targetEmoji = $('.js-set-emoji-background').val()
+  var hubotScript = '"' + targetEmoji + '": {\n  '
+  var emojiScript = ''
 
-  $('.cell.selected').attr('data-number', num)
-  $('.cell.selected').removeClass('selected')
-  $('.set-emojis').append("<div class='set-" + num + "'>SET " + num + " <input autocomplete='emojis' type='text' id='emoji-" + num + "' placeholder='" + num + "' /><button id='edit-" + num + "'>Edit set " + num + " selection</button></div>")
-  $("#number").val(num + 1)
+  $('.cell').each(function(i) {
+    i++
+    var emoji = $(this).attr('data-emoji')
+    if(tmpEmojis.indexOf(emoji) < 0) tmpEmojis.push(emoji)
+
+    tmpPattern  += tmpEmojis.indexOf(emoji)
+    emojiScript += emoji
+    if(i % Number($('.js-grid-cols').val()) === 0) {
+      tmpPattern  += '|'
+      emojiScript += '\n'
+    }
+  })
+
+  // hubot
+  hubotScript += 'emoji: [ ' + tmpEmojis.map(function(e) { return '\'' + e + '\'' }).join(', ') + ' ]\n'
+  hubotScript += 'pattern: "' + tmpPattern + '"\n'
+  hubotScript += '}'
+
+  $('.js-hubot-script').val(hubotScript)
+  $('.js-emoji-script').val(emojiScript)
+}
+
+function toggleFacebox (toggle) {
+  $('.facebox, .backdrop').toggle(toggle)
+}
+
+// helpers
+function setEmojiBackground (target, emoji) {
+  var emoji = emoji.replace(/:/g, '')
+  target.css('background-image', 'url("emojis/' + emoji + '.png")')
+}
+
+function resetAll () {
+  setEmojiBackground($('.cell.painted'), 'white_large_square')
+  $('.cell.painted').removeClass('painted')
 }

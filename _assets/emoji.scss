@@ -7,11 +7,21 @@
   width: 260px;
   border: 1px solid #ddd;
   margin-top: 3px;
+
   .emoji {
+    cursor: pointer;
     padding: 5px;
     border-radius: 3px;
     border-bottom: 1px solid #ddd;
-    img { width: 20px; margin-right: 5px; vertical-align: middle; }
-    &:hover { font-weight: bold; }
+
+    img {
+      width: 20px;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    &:hover {
+      font-weight: bold;
+    }
   }
 }

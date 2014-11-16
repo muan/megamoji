@@ -17,60 +17,48 @@
     <meta content="" property="og:image" />
     <meta content="" property="og:url" />
     <meta content="" property="og:description" />
-    <style id="#style"></style>
   </head>
   <body>
-    <input id="toggle" type="checkbox" />
-    <div class="ctrls">
-      <label for="toggle" class="toggle"></label>
-      <h3 class="step inline">1.</h3>
-      <input type="number" step="1" min="1" id="rows" value="12" class="js-rows short" />
-      rows
-      x
-      <input type="number" step="1" min="1" value="12" class="js-cols short" />
-      cols<br />
-      <button class="js-change-grid">Set grid</button>
-
-      <hr />
-      <h3 class="step">2. choose an emoji as reference</h3>
-      <input type="text" class="js-set-emoji-background js-auto-emoji inline" placeholder=":sheep:" /><br />
-      or <input type="file" class="js-set-file-background inline" />
-
-      <hr />
-      <h3 class="step inline">3.</h3>
-      <button class="js-save-selection">Create set from selection</button>
-      <input type="hidden" class="js-set-id" value="0" /><br />
-      or <button class="js-reset-selection">Reset Selection</button>
-
-      <hr />
-      <h3 class="step">4. assign emoji</h3>
-
-      <div class="set-emojis">
-        BLANK SPACE
-        <input type="text" id="emoji-none" class="js-auto-emoji" value=":white_large_square:" /><br />
+    <div class="tools">
+      <div class="tool-set">
+        <label for="rows">Grid</label>
+        <input id="cols" class="js-grid-cols short" type="number" value="12">
+        x
+        <input id="rows" class="js-grid-rows short" type="number" value="12">
       </div>
-
-      <hr />
-      <h3 class="step inline">5.</h3>
-
-      <button id="preview">Preview</button>
-
-      <hr />
-      <h3 class="step inline">6.</h3>
-      <button class="js-output-script" data-code="hubot">Output script</button>
-      or <button class="js-output-script" data-code="emoji">Output emoji code</button>
+      <div class="tool-set">
+        <label for="background">Background</label>
+        <input id="background" type="text" class="js-set-emoji-background js-auto-emoji inline" placeholder=":sheep:" />
+        or <input type="file" class="js-set-file-background inline" />
+      </div>
+      <div class="tool-set">
+        <label for="paint">
+          Emoji paint
+          <div class="js-paint-preview paint-preview"></div>
+        </label>
+        <input id="paint" class="js-paint js-auto-emoji" type="text" value=":star:">
+      </div>
+      <div class="tool-set">
+        <label>Done?</label>
+        <button class="js-output-script primary">Output script</button>
+        <button class="js-reset">Reset all</button>
+      </div>
     </div>
 
-    <div class="wrapper">
-      <div class="canvas">
-        <div class="grid">
-        </div>
-      </div>
-
-      <div class="preview-canvas"></div>
-      <div class="output"></div>
+    <div class="js-grid grid">
     </div>
 
+    <div class="facebox hidden">
+      <input name="script" id="emoji-script" type="radio" class="hidden" checked>
+      <input name="script" id="hubot-script" type="radio" class="hidden">
+      <label for="emoji-script" class="button e">Emoji text</label>
+      <label for="hubot-script" class="button h">Hubot Script</label>
+
+      <textarea class="js-hubot-script hubot-script"></textarea>
+      <textarea class="js-emoji-script emoji-script"></textarea>
+
+    </div>
+    <div class="backdrop hidden"></div>
 
   </body>
 </html>
