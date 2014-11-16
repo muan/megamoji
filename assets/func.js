@@ -119,7 +119,7 @@ function generateScript () {
     tmpPattern  += tmpEmojis.indexOf(emoji)
     emojiScript += emoji
     if(i % Number($('.js-grid-cols').val()) === 0) {
-      tmpPattern  += '|'
+      if(i < $('.cell').length) tmpPattern  += '|'
       emojiScript += '\n'
     }
   })
