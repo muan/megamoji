@@ -8,8 +8,8 @@
 
 ## TODO
 
-- A better autocomplete thing that works with keyboard shortcuts
-- Keyword search(?)
+- Paint bucket
+- Undo
 - Modulize autocompletion
 
 :leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves:<br />
