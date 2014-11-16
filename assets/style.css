@@ -75,7 +75,12 @@ textarea {
   overflow: hidden;
   width: 400px;
   padding-bottom: 1px;
-  line-height: 0; }
+  line-height: 0;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
 
 .row {
   font-size: 0;
