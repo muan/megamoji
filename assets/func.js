@@ -49,6 +49,12 @@ $(document).on('click', '.backdrop', function() {
   toggleFacebox(false)
 })
 
+$(document).on('click', '.js-sip', function() {
+  var emoji = $(this).closest('.cell').attr('data-emoji')
+  $('.js-paint').val(emoji).trigger('selected')
+  return false
+})
+
 function setEmojiPaint (emoji) {
   var emoji = emoji.replace(/:/g, '')
   $('.js-paint-preview').css('background-image', 'url("emojis/' + emoji + '.png")')
@@ -69,7 +75,7 @@ function setGrid () {
   grid.html('')
 
   for(i=0; i < (cols*rows); i++) {
-    cell = $("<div class='cell' data-emoji=':white_large_square:' style='width: " + cellSize + "px; height: " + cellSize + "px;'>")
+    cell = $("<div class='cell' data-emoji=':white_large_square:' style='width: " + cellSize + "px; height: " + cellSize + "px;'><div class='sip js-sip'>")
     setEmojiBackground(cell, 'white_large_square')
     grid.append(cell)
     if((i+1)%cols === 0) { grid.append('<br>') }

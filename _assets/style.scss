@@ -121,6 +121,27 @@ textarea {
   &.painted {
     opacity: 1;
     background-color: rgba(255, 255, 255, .3);
+
+    &:hover .sip {
+      display: block;
+    }
+  }
+}
+
+.sip {
+  z-index: 5;
+  border-radius: 10px;
+  display: none;
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  background: #000;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #fff;
+
+  &:hover {
+    background-color: #bb2921;
   }
 }
 
