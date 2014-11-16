@@ -8,7 +8,6 @@
 
 ## TODO
 
-- Paint bucket
 - Undo
 - Modulize autocompletion
 
