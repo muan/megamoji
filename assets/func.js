@@ -5,10 +5,13 @@ $(document).on('ready', function() {
 
 // drag
 $(document).on('mousedown', '.cell', function (e) {
-  boolean = !$(e.target).hasClass('painted')
-  markSelected($(e.target), boolean)
+  var bucketMode = $('.js-bucketfy').attr('data-bucket')
+  var paintTarget = bucketMode ? $('[data-emoji="' + $(e.target).attr('data-emoji') + '"]') : $(e.target)
+  var paintOrErase = bucketMode ? true : !paintTarget.hasClass('painted')
+
+  markSelected(paintTarget, paintOrErase)
   $(document).on('mouseover', '.cell', function (e) {
-    markSelected($(e.target), boolean)
+    markSelected($(e.target), paintOrErase)
   })
 })
 
@@ -19,6 +22,11 @@ $(document).on('mouseup', '.cell', function (e) {
 
 $(document).on('change', '.js-grid-rows, .js-grid-cols', function() {
   setGrid()
+})
+
+$(document).on('click', '.js-bucketfy', function() {
+  var bucketMode = $('.js-bucketfy').attr('data-bucket')
+  bucketMode ? $(this).removeAttr('data-bucket') : $(this).attr('data-bucket', '1')
 })
 
 // select an emoji as paint

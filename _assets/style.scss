@@ -193,3 +193,18 @@ textarea {
 .emoji-script {
   display: none;
 }
+
+.bucketfy {
+  color: #08c;
+  font-size: 11px;
+
+  &:before {
+    content: "- pen";
+    color: #888;
+    font-weight: normal;
+  }
+
+  &[data-bucket]:before {
+    content: "- bucket";
+  }
+}

@@ -157,3 +157,13 @@ textarea {
 .hubot-script,
 .emoji-script {
   display: none; }
+
+.bucketfy {
+  color: #08c;
+  font-size: 11px; }
+  .bucketfy:before {
+    content: "- pen";
+    color: #888;
+    font-weight: normal; }
+  .bucketfy[data-bucket]:before {
+    content: "- bucket"; }
