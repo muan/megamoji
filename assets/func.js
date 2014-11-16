@@ -137,5 +137,5 @@ function setEmojiBackground (target, emoji) {
 
 function resetAll () {
   setEmojiBackground($('.cell.painted'), 'white_large_square')
-  $('.cell.painted').removeClass('painted')
+  $('.cell.painted').removeClass('painted').attr('data-emoji', ':white_large_square:')
 }
