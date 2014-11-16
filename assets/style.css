@@ -87,6 +87,7 @@ textarea {
   height: 15px; }
 
 .cell {
+  cursor: pointer;
   position: relative;
   display: inline-block;
   border: 1px solid #e0e0e0;
@@ -95,7 +96,7 @@ textarea {
   opacity: 0.4; }
   .cell:hover {
     z-index: 1;
-    border-color: #c0c0c0; }
+    border-color: #a0a0a0; }
   .cell.painted {
     opacity: 1;
     background-color: rgba(255, 255, 255, 0.3); }

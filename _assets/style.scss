@@ -105,6 +105,7 @@ textarea {
 }
 
 .cell {
+  cursor: pointer;
   position: relative;
   display: inline-block;
   border: 1px solid #e0e0e0;
@@ -114,7 +115,7 @@ textarea {
 
   &:hover {
     z-index: 1;
-    border-color: #c0c0c0;
+    border-color: #a0a0a0;
   }
 
   &.painted {
