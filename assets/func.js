@@ -65,13 +65,14 @@ function setGrid () {
   var cols = Number($('.js-grid-cols').val())
   var grid = $('.js-grid')
   var gridWidth = grid.width()
-  var cellSize = gridWidth/cols
+  var cellSize = Math.floor(gridWidth/cols)
   grid.html('')
 
   for(i=0; i < (cols*rows); i++) {
     cell = $("<div class='cell' data-emoji=':white_large_square:' style='width: " + cellSize + "px; height: " + cellSize + "px;'>")
     setEmojiBackground(cell, 'white_large_square')
     grid.append(cell)
+    if((i+1)%cols === 0) { grid.append('<br>') }
   }
 }
 
