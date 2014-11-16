@@ -39,7 +39,6 @@ textarea {
   width: 100%;
   height: 200px;
   font-family: monospace;
-  white-space: nowrap;
   border: 1px solid #e0e0e0; }
 
 .tools {
