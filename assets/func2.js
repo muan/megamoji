@@ -40,6 +40,15 @@ $(document).on('change', '.js-set-file-background', function () {
   reader.readAsDataURL(this.files[0])
 })
 
+$(document).on('click', '.js-output-script', function() {
+  generateScript()
+  toggleFacebox(true)
+})
+
+$(document).on('click', '.backdrop', function() {
+  toggleFacebox(false)
+})
+
 function setEmojiPaint (emoji) {
   var emoji = emoji.replace(/:/g, '')
   $('.js-paint-preview').css('background-image', 'url("emojis/' + emoji + '.png")')
@@ -60,7 +69,9 @@ function setGrid () {
   grid.html('')
 
   for(i=0; i < (cols*rows); i++) {
-    grid.append("<div class='cell' style='width: " + cellSize + "px; height: " + cellSize + "px;'>")
+    cell = $("<div class='cell' data-emoji=':white_large_square:' style='width: " + cellSize + "px; height: " + cellSize + "px;'>")
+    setEmojiBackground(cell, 'white_large_square')
+    grid.append(cell)
   }
 }
 
@@ -68,12 +79,47 @@ function markSelected (ele, toggle) {
   if(typeof toggle === 'undefined') { var toggle = true }
 
   if(toggle) {
+    var emoji = $('.js-paint').val()
     ele.addClass('painted')
-    setEmojiBackground(ele, $('.js-paint').val())
+    ele.attr('data-emoji', emoji)
+    setEmojiBackground(ele, emoji)
   } else {
-    ele.removeClass('painted')
-    ele.css('background-image', 'none')
+    ele.attr('data-emoji', ':white_large_square:').removeClass('painted')
+    setEmojiBackground(ele, 'white_large_square')
   }
+}
+
+function generateScript () {
+  var tmpEmojis   = []
+  var tmpPattern  = ''
+  var targetEmoji = $('.js-set-emoji-background').val()
+  var hubotScript = '"' + targetEmoji + '": {\n  '
+  var emojiScript = ''
+
+  $('.cell').each(function(i) {
+    i++
+    var emoji = $(this).attr('data-emoji')
+    if(tmpEmojis.indexOf(emoji) < 0) tmpEmojis.push(emoji)
+
+    tmpPattern  += tmpEmojis.indexOf(emoji)
+    emojiScript += emoji
+    if(i % Number($('.js-grid-cols').val()) === 0) {
+      tmpPattern  += '|'
+      emojiScript += '\n'
+    }
+  })
+
+  // hubot
+  hubotScript += 'emoji: [ ' + tmpEmojis.map(function(e) { return '\'' + e + '\'' }).join(', ') + ' ]\n'
+  hubotScript += 'pattern: "' + tmpPattern + '"\n'
+  hubotScript += '}'
+
+  $('.js-hubot-script').val(hubotScript)
+  $('.js-emoji-script').val(emojiScript)
+}
+
+function toggleFacebox (toggle) {
+  $('.facebox, .backdrop').toggle(toggle)
 }
 
 // helpers
@@ -83,5 +129,6 @@ function setEmojiBackground (target, emoji) {
 }
 
 function resetAll () {
-  $('.cell.painted').css('background-image', 'none').removeClass('painted')
+  setEmojiBackground($('.cell.painted'), 'white_large_square')
+  $('.cell.painted').removeClass('painted')
 }

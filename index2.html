@@ -22,13 +22,13 @@
     <div class="tools">
       <div class="tool-set">
         <label for="rows">Grid</label>
-        <input name="rows" class="js-grid-rows short" type="number" value="12">
+        <input id="cols" class="js-grid-cols short" type="number" value="12">
         x
-        <input name="cols" class="js-grid-cols short" type="number" value="12">
+        <input id="rows" class="js-grid-rows short" type="number" value="12">
       </div>
       <div class="tool-set">
-        <label for="rows">Background</label>
-        <input type="text" class="js-set-emoji-background js-auto-emoji inline" placeholder=":sheep:" />
+        <label for="background">Background</label>
+        <input id="background" type="text" class="js-set-emoji-background js-auto-emoji inline" placeholder=":sheep:" />
         or <input type="file" class="js-set-file-background inline" />
       </div>
       <div class="tool-set">
@@ -36,7 +36,7 @@
           Emoji paint
           <div class="js-paint-preview paint-preview"></div>
         </label>
-        <input name="paint" class="js-paint js-auto-emoji" type="text" value=":heart:">
+        <input id="paint" class="js-paint js-auto-emoji" type="text" value=":star:">
       </div>
       <div class="tool-set">
         <label>Done?</label>
@@ -47,6 +47,18 @@
 
     <div class="js-grid grid">
     </div>
+
+    <div class="facebox hidden">
+      <input name="script" id="emoji-script" type="radio" class="hidden" checked>
+      <input name="script" id="hubot-script" type="radio" class="hidden">
+      <label for="emoji-script" class="button e">Emoji text</label>
+      <label for="hubot-script" class="button h">Hubot Script</label>
+
+      <textarea class="js-hubot-script hubot-script"></textarea>
+      <textarea class="js-emoji-script emoji-script"></textarea>
+
+    </div>
+    <div class="backdrop hidden"></div>
 
   </body>
 </html>

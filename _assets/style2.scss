@@ -12,7 +12,8 @@ label {
 
 input[type=number],
 input[type=text],
-button {
+button,
+.button {
   padding: 8px 10px;
   border: 0;
   background: #f0f0f0;
@@ -26,14 +27,31 @@ input[type=text] {
   }
 }
 
-button {
+button,
+.button {
   font-weight: bold;
   margin-right: 15px;
+
+  &:active {
+    background: #e0e0e0;
+  }
 
   &.primary {
     color: #fff;
     background: #29b666;
+
+    &:active {
+      background: #239d58;
+    }
   }
+}
+
+textarea {
+  width: 100%;
+  height: 200px;
+  font-family: monospace;
+  white-space: nowrap;
+  border: 1px solid #e0e0e0;
 }
 
 .tools {
@@ -85,6 +103,8 @@ button {
   display: inline-block;
   border: 1px solid #e0e0e0;
   margin: 0 -1px -1px 0;
+  background-size: cover;
+  opacity: 0.4;
 
   &:hover {
     z-index: 1;
@@ -92,8 +112,53 @@ button {
   }
 
   &.painted {
+    opacity: 1;
     background-color: rgba(255, 255, 255, .3);
-    background-size: cover;
   }
 }
 
+.facebox {
+  position: absolute;
+  background: #fff;
+  width: 600px;
+  height: 300px;
+  padding: 15px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+
+  label {
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+}
+
+.backdrop {
+  background: rgba(0, 0, 0, .05);
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9;
+}
+
+.hidden {
+  display: none;
+}
+
+#hubot-script:checked ~ .hubot-script,
+#emoji-script:checked ~ .emoji-script {
+  display: block;
+}
+
+#hubot-script:checked ~ .h,
+#emoji-script:checked ~ .e {
+  color: #fff;
+  background: #29b666;
+}
+
+.hubot-script,
+.emoji-script {
+  display: none;
+}
