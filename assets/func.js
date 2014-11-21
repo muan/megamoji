@@ -69,25 +69,30 @@ function setEmojiPaint (emoji) {
 }
 
 function setGrid () {
-  if($('.cell.painted').length > 0) {
-    if(!confirm('Resetting the grid will clear the canvas, are you sure?')) {
-      return
-    }
-  }
-
   var rows = Number($('.js-grid-rows').val())
   var cols = Number($('.js-grid-cols').val())
   var grid = $('.js-grid')
   var gridWidth = grid.width()
   var cellSize = Math.floor(gridWidth/cols)
-  grid.html('')
 
-  for(i=0; i < (cols*rows); i++) {
-    cell = $("<div class='cell' data-emoji=':white_large_square:' style='width: " + cellSize + "px; height: " + cellSize + "px;'><div class='sip js-sip'>")
-    setEmojiBackground(cell, 'white_large_square')
-    grid.append(cell)
-    if((i+1)%cols === 0) { grid.append('<br>') }
+  for(r=0; r < rows; r++) {
+    for(c=0; c < cols; c++) {
+      var cell = $('.r' + r + '.c' + c )
+      if(cell.length == 0) {
+        cell = $("<div class='cell'><div class='sip js-sip'>")
+        cell.addClass('r'+ r + ' c'+ c)
+        cell.attr('data-emoji', ':white_large_square:')
+        setEmojiBackground(cell, 'white_large_square')
+        var endOfRow = $('.r' + r).last()
+        endOfRow.length > 0 ? endOfRow.after(cell) : grid.append(cell)
+      }
+      cell.css('width', cellSize + 'px').css('height', cellSize + 'px')
+      if(!cell[0].r) cell[0].r = r; cell[0].c = c
+    }
+    grid.append('<br>')
   }
+
+  $('.cell').filter(function() { return this.c >= cols || this.r >= rows }).remove()
 }
 
 function markSelected (ele, toggle) {
