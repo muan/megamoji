@@ -170,8 +170,7 @@ textarea {
 
 .preview {
   background: none !important; }
-
-.preview .cell {
-  background-color: transparent !important;
-  opacity: 1;
-  border-color: transparent; }
+  .preview .cell {
+    background-color: transparent !important;
+    opacity: 1;
+    border-color: transparent; }
