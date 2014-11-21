@@ -34,6 +34,10 @@ $(document).on('selected', '.js-paint', function () {
   setEmojiPaint($(this).val())
 })
 
+$(document).on('click', '.js-preview', function() {
+  $('.js-grid').toggleClass('preview')
+})
+
 $(document).on('selected', '.js-set-emoji-background', function() {
   setEmojiBackground($('.grid'), $(this).val())
 })

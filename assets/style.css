@@ -167,3 +167,11 @@ textarea {
     font-weight: normal; }
   .bucketfy[data-bucket]:before {
     content: "- bucket"; }
+
+.preview {
+  background: none !important; }
+
+.preview .cell {
+  background-color: transparent !important;
+  opacity: 1;
+  border-color: transparent; }
