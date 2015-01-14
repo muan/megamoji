@@ -3,7 +3,9 @@ script: phantomjs test.js
 sudo: false
 notifications:
   email: false
+  slack:
+    secure: fAckorY43AJo7D3Nn7AeClE9nbCknWKl5X1aO1OgwhNAJA+GzH777XMKqP8n2uQxwDs/ibbR50DSQtO57h1EVGo38ziww3E0qNX+2TVAReyLxMW/021oUn87Drjp38ZuEiV7MH8Loli3w56GU6+yG134eBLkXXchB8Xg65cYacQ=
 branches:
   only:
-    - gh-pages
-    - /.+/
+  - gh-pages
+  - "/.+/"
