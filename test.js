@@ -2,10 +2,11 @@ var page = require("webpage").create()
 
 page.open("./index.html", function(status) {
   var result = page.evaluate(function() {
-    var buildFailed = false
-    var messages    = []
-    var firstCell   = $(".cell").first()
-    var lastCell    = $(".cell").last()
+    var buildFailed     = false
+    var thisBuildFailed = false
+    var messages        = []
+    var firstCell       = $(".cell").first()
+    var lastCell        = $(".cell").last()
 
     test("Pen works", function() {
       firstCell.mousedown()
@@ -42,11 +43,20 @@ page.open("./index.html", function(status) {
       expectEqual($(".cell[data-emoji=':star:']").length, 143, "All cells but one be star")
     })
 
+    test("Emoji background works", function() {
+      $(".js-set-emoji-background").focus()
+      $("[alt=':scream:']").parents(".js-emoji").click()
+
+      expectEqual(Boolean($(".grid").css("background-image").match(/scream.png/)), true, "Background be scream")
+    })
+
+
     function test(topic, testing) {
+      thisBuildFailed = false
       messages.push("# " + topic + "\n")
       testing()
 
-      if(!buildFailed) {
+      if(!thisBuildFailed) {
         messages.push("YES!\n\n")
       }
     }
@@ -54,6 +64,7 @@ page.open("./index.html", function(status) {
     function expectEqual(evaluation, expectation, message) {
       if(evaluation != expectation) {
         buildFailed = true
+        thisBuildFailed = true
         messages.push("– " + message + "\n")
         messages.push("  Expected " + expectation + ", got " + evaluation + "\n\n")
       }
