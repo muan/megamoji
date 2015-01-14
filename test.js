@@ -1,4 +1,4 @@
-var page        = require("webpage").create()
+var page = require("webpage").create()
 
 page.open("./index.html", function(status) {
   var result = page.evaluate(function() {
@@ -7,54 +7,55 @@ page.open("./index.html", function(status) {
     var firstCell   = $(".cell").first()
     var lastCell    = $(".cell").last()
 
-    firstCell.mousedown()
-    test("Pen works", [
-      [$(".cell[data-emoji=':star:']").length, 1, "One cell be star"],
-      [firstCell.attr("data-emoji"), ":star:", "This cell be star"]
-    ])
+    test("Pen works", function() {
+      firstCell.mousedown()
 
-    $(".js-paint").focus()
-    $("[alt=':100:']").parents(".js-emoji").click()
-    lastCell.mousedown()
-    test("Change emoji paint works", [
-      [$(".js-paint").val(), ":100:", "Paint be 100"],
-      [lastCell.attr('data-emoji'), ":100:", "This cell be 100"],
-      [$(".cell[data-emoji=':100:']").length, 1, "One cell be 100"]
-    ])
+      expectEqual($(".cell[data-emoji=':star:']").length, 1, "One cell be star")
+      expectEqual(firstCell.attr("data-emoji"), ":star:", "This cell be star")
+    })
 
-    firstCell.find(".js-sip").click()
-    test("Sip works", [
-      [$(".js-paint").val(), ":star:", "Paint be star"]
-    ])
+    test("Change emoji paint works", function() {
+      $(".js-paint").focus()
+      $("[alt=':100:']").parents(".js-emoji").click()
+      lastCell.mousedown()
 
-    firstCell.mousedown()
-    test("Erasing works", [
-      [$(".cell[data-emoji=':star:']").length, 0, "No cells be star"],
-      [firstCell.attr("data-emoji"), ":white_large_square:", "This cell not star"]
-    ])
+      expectEqual($(".js-paint").val(), ":100:", "Paint be 100")
+      expectEqual(lastCell.attr('data-emoji'), ":100:", "This cell be 100")
+      expectEqual($(".cell[data-emoji=':100:']").length, 1, "One cell be 100")
+    })
 
-    $('.js-bucketfy').click()
-    firstCell.mousedown()
-    test("Bucketfy works", [
-      [$(".cell[data-emoji=':star:']").length, 143, "All cells but one be star"]
-    ])
+    test("Sip works", function() {
+      firstCell.find(".js-sip").click()
 
-    function test(topic, expectations) {
+      expectEqual($(".js-paint").val(), ":star:", "Paint be star")
+    })
+
+    test("Erasing works", function() {
+      firstCell.mousedown()
+      expectEqual($(".cell[data-emoji=':star:']").length, 0, "No cells be star")
+      expectEqual(firstCell.attr("data-emoji"), ":white_large_square:", "This cell not star")
+    })
+
+    test("Bucketfy works", function() {
+      $('.js-bucketfy').click()
+      firstCell.mousedown()
+      expectEqual($(".cell[data-emoji=':star:']").length, 143, "All cells but one be star")
+    })
+
+    function test(topic, testing) {
       messages.push("# " + topic + "\n")
-      expectations.forEach(function(arr) {
-        var evaluation  = arr[0]
-        var expectation = arr[1]
-        var statement   = arr[2]
-
-        if(evaluation != expectation) {
-          buildFailed = true
-          messages.push("– " + statement + "\n")
-          messages.push("  Expected " + expectation + ", got " + evaluation + "\n\n")
-        }
-      })
+      testing()
 
       if(!buildFailed) {
         messages.push("YES!\n\n")
+      }
+    }
+
+    function expectEqual(evaluation, expectation, message) {
+      if(evaluation != expectation) {
+        buildFailed = true
+        messages.push("– " + message + "\n")
+        messages.push("  Expected " + expectation + ", got " + evaluation + "\n\n")
       }
     }
 
