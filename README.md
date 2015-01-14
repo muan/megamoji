@@ -10,6 +10,7 @@
 
 - Undo
 - Modulize autocompletion
+- Test all the things
 
 :leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves:<br />
 :leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::sheep::sheep::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves:<br />
