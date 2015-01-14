@@ -11,6 +11,12 @@
 - Undo
 - Modulize autocompletion
 - Test all the things
+- Update the gifs
+
+## DEVELOPMENT
+
+- Run `scss --watch _assets:assets` to compile the scss files
+- Open `index.html`
 
 :leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves:<br />
 :leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::sheep::sheep::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves:<br />
