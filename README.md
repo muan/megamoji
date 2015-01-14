@@ -13,10 +13,22 @@
 - Test all the things
 - Update the gifs
 
-## DEVELOPMENT
+## CONTRIBUTING
 
-- Run `scss --watch _assets:assets` to compile the scss files
+### DEVELOPMENT
+
+- Fork this repository
+- If you're making changes to the scss file, run `scss --watch _assets:assets` to compile them.
 - Open `index.html`
+
+### TESTS
+
+- Install PhantomJS – http://phantomjs.org/download.html
+- Run `phantomjs test.js`
+
+**or**
+
+- Submit a pull request, and let [Travis CI](https://travis-ci.org/muan/megamoji) do the rest
 
 :leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves:<br />
 :leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::sheep::sheep::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves::leaves:<br />
