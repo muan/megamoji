@@ -54,7 +54,7 @@ page.open("./index.html", function(status) {
       })
 
       if(!buildFailed) {
-        messages.push("PASSED!\n\n")
+        messages.push("YES!\n\n")
       }
     }
 
