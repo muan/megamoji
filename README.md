@@ -1,4 +1,4 @@
-# MEGAMOJI MAKER
+# MEGAMOJI MAKER [![Travis CI](https://travis-ci.org/muan/megamoji.svg?branch=gh-pages)](https://travis-ci.org/muan/megamoji)
 
 ![poop](https://cloud.githubusercontent.com/assets/1153134/5061014/bce4d85a-6d32-11e4-9166-7f1ede0e5f0f.gif)
 
