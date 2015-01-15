@@ -56,6 +56,13 @@ page.open("./index.html", function(status) {
       expectEqual($(".cell[data-emoji=':white_large_square:']").length, 144, "All cells back to default")
     })
 
+    test("Output script works", function() {
+      $(".js-output-script").click()
+
+      expectEqual(Boolean($(".js-emoji-script").val()), true, "Emoji script is generated")
+      expectEqual(Boolean($(".js-hubot-script").val()), true, "Hubot script is generated")
+    })
+
     function test(topic, testing) {
       thisBuildFailed = false
       messages.push("# " + topic + "\n")
