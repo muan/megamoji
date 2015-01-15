@@ -50,6 +50,11 @@ page.open("./index.html", function(status) {
       expectEqual(Boolean($(".grid").css("background-image").match(/scream.png/)), true, "Background be scream")
     })
 
+    test("Reset works", function() {
+      $(".js-reset").click()
+
+      expectEqual($(".cell[data-emoji=':white_large_square:']").length, 144, "All cells back to default")
+    })
 
     function test(topic, testing) {
       thisBuildFailed = false
