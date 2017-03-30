@@ -1,17 +1,23 @@
+const startEmoji = '⬜'
+var simpleMapEmoji, grid
+
+$.getJSON('assets/emojilib/simplemap.json', function (emojis) {simpleMapEmoji = emojis})
+
 $(document).on('ready', function() {
   setGrid()
-  setEmojiPaint($('.js-paint').val())
 })
 
 // drag
 $(document).on('mousedown', '.cell', function (e) {
-  var bucketMode = $('.js-bucketfy').attr('data-bucket')
-  var paintTarget = bucketMode ? $('[data-emoji="' + $(e.target).attr('data-emoji') + '"]') : $(e.target)
-  var paintOrErase = bucketMode ? true : !paintTarget.hasClass('painted')
+  if (e.target !== e.currentTarget) return
+
+  var bucketMode = document.querySelector('.js-bucketfy').getAttribute('data-bucket')
+  var paintTarget = bucketMode ? document.querySelectorAll('.cell[data-emoji="' + this.getAttribute('data-emoji') + '"]') : this
+  var paintOrErase = bucketMode ? true : !paintTarget.classList.contains('painted')
 
   markSelected(paintTarget, paintOrErase)
   $(document).on('mouseover', '.cell', function (e) {
-    markSelected($(e.target), paintOrErase)
+    markSelected(this, paintOrErase)
   })
 })
 
@@ -25,21 +31,16 @@ $(document).on('change', '.js-grid-rows, .js-grid-cols', function() {
 })
 
 $(document).on('click', '.js-bucketfy', function() {
-  var bucketMode = $('.js-bucketfy').attr('data-bucket')
-  bucketMode ? $(this).removeAttr('data-bucket') : $(this).attr('data-bucket', '1')
-})
-
-// select an emoji as paint
-$(document).on('selected', '.js-paint', function () {
-  setEmojiPaint($(this).val())
+  var bucketMode = document.querySelector('.js-bucketfy').getAttribute('data-bucket')
+  bucketMode ? this.removeAttribute('data-bucket') : this.setAttribute('data-bucket', '1')
 })
 
 $(document).on('click', '.js-preview', function() {
-  $('.js-grid').toggleClass('preview')
+  grid.classList.toggle('preview')
 })
 
 $(document).on('selected', '.js-set-emoji-background', function() {
-  setEmojiBackground($('.grid'), $(this).val())
+  setEmojiBackground(grid, this.value)
 })
 
 $(document).on('click', '.js-reset', resetAll)
@@ -47,7 +48,7 @@ $(document).on('click', '.js-reset', resetAll)
 $(document).on('change', '.js-set-file-background', function () {
   var reader = new FileReader()
   reader.onload = function (e) {
-    $('.grid').css('background-image', 'url("' + e.target.result + '")')
+    grid.setAttribute('style', 'background-image: url("' + e.target.result + '")')
   }
   reader.readAsDataURL(this.files[0])
 })
@@ -61,98 +62,125 @@ $(document).on('click', '.backdrop', function() {
   toggleFacebox(false)
 })
 
-$(document).on('click', '.js-sip', function() {
-  var emoji = $(this).closest('.cell').attr('data-emoji')
-  $('.js-paint').val(emoji).trigger('selected')
-  return false
+$(document).on('click', '.js-sip', function(e) {
+  var emoji = this.parentElement.getAttribute('data-emoji')
+  document.querySelector('.js-paint').value = emoji
+  e.preventDefault()
 })
 
-function setEmojiPaint (emoji) {
-  var emoji = emoji.replace(/:/g, '')
-  $('.js-paint-preview').css('background-image', 'url("emojis/' + emoji + '.png")')
-}
-
 function setGrid () {
-  var rows = Number($('.js-grid-rows').val())
-  var cols = Number($('.js-grid-cols').val())
-  var grid = $('.js-grid')
-  var gridWidth = grid.width()
-  var cellSize = Math.floor(gridWidth/cols)
+  grid = document.querySelector('.js-grid')
+  var rows = Number(document.querySelector('.js-grid-rows').value)
+  var cols = Number(document.querySelector('.js-grid-cols').value)
+  var gridWidth = grid.clientWidth
+  var height = Math.floor(gridWidth/cols)
+  var width = Number(1/cols*100).toPrecision(4)
+  var styles = `width: ${width}%; height: ${height}px; font-size: ${Math.floor(height * 0.9)}px`
 
   for(r=0; r < rows; r++) {
     for(c=0; c < cols; c++) {
-      var cell = $('.r' + r + '.c' + c )
-      if(cell.length == 0) {
-        cell = $("<div class='cell'><div class='sip js-sip'>")
-        cell.addClass('r'+ r + ' c'+ c)
-        cell.attr('data-emoji', ':white_large_square:')
-        setEmojiBackground(cell, 'white_large_square')
-        var endOfRow = $('.r' + r).last()
-        endOfRow.length > 0 ? endOfRow.after(cell) : grid.append(cell)
+      var new_cell = false
+      var cell = document.querySelector(`[data-row='${r}'][data-col='${c}']`)
+      if(!cell) {
+        new_cell = true
+        cell = document.createElement('div')
+        cell.className = `cell`
+        cell.setAttribute('data-emoji', startEmoji)
+        sip = document.createElement('div')
+        sip.className = 'sip js-sip'
+        cell.appendChild(sip)
+        cell.setAttribute('style', styles)
+
+        setEmojiBackground(cell, startEmoji)
       }
-      cell.css('width', cellSize + 'px').css('height', cellSize + 'px')
-      if(!cell[0].r) cell[0].r = r; cell[0].c = c
+
+      cell.setAttribute('style', styles)
+      cell.setAttribute('data-row', r)
+      cell.setAttribute('data-col', c)
+      if (new_cell) {
+        var cell_on_row = document.querySelectorAll(`[data-row='${r}']`)
+        var endOfRow = cell_on_row[cell_on_row.length - 1]
+        endOfRow ? grid.insertBefore(cell, endOfRow.nextElementSibling) : grid.appendChild(cell)
+      }
     }
-    grid.append('<br>')
   }
 
-  $('.cell').filter(function() { return this.c >= cols || this.r >= rows }).remove()
+  for(var cell of document.querySelectorAll('.cell')) {
+    if (Number(cell.getAttribute('data-row')) >= rows || Number(cell.getAttribute('data-col')) >= cols) {
+      cell.remove()
+    }
+  }
 }
 
 function markSelected (ele, toggle) {
   if(typeof toggle === 'undefined') { var toggle = true }
 
   if(toggle) {
-    var emoji = $('.js-paint').val()
-    ele.addClass('painted')
-    ele.attr('data-emoji', emoji)
-    setEmojiBackground(ele, emoji)
+    var emoji = document.querySelector('.js-paint').value
+    var cells = ele.length ? Array.from(ele) : [ele]
+    for(var cell of cells) {
+      cell.classList.add('painted')
+      cell.setAttribute('data-emoji', emoji)
+      setEmojiBackground(cell, emoji)
+    }
   } else {
-    ele.attr('data-emoji', ':white_large_square:').removeClass('painted')
-    setEmojiBackground(ele, 'white_large_square')
+    ele.setAttribute('data-emoji', startEmoji)
+    ele.classList.remove('painted')
+    setEmojiBackground(ele, startEmoji)
   }
 }
 
 function generateScript () {
   var tmpEmojis   = []
   var tmpPattern  = ''
-  var targetEmoji = $('.js-set-emoji-background').val()
-  var hubotScript = '"' + targetEmoji + '": {\n  '
+  var targetEmoji = document.querySelector('.js-set-emoji-background').value
+  var hubotScript = '"' + findEmojiCode(targetEmoji) + '": {\n  '
   var emojiScript = ''
+  var cols = document.querySelector('.js-grid-cols').value
+  var cells = document.querySelectorAll('.cell')
+  var i = 0
 
-  $('.cell').each(function(i) {
+  for(var cell of cells) {
     i++
-    var emoji = $(this).attr('data-emoji')
-    if(tmpEmojis.indexOf(emoji) < 0) tmpEmojis.push(emoji)
+    var emoji = cell.getAttribute('data-emoji')
+    if(tmpEmojis.indexOf(findEmojiCode(emoji)) < 0) tmpEmojis.push(findEmojiCode(emoji))
 
-    tmpPattern  += tmpEmojis.indexOf(emoji)
+    tmpPattern  += tmpEmojis.indexOf(findEmojiCode(emoji))
     emojiScript += emoji
-    if(i % Number($('.js-grid-cols').val()) === 0) {
-      if(i < $('.cell').length) tmpPattern  += '|'
+    if(i % Number(cols) === 0) {
+      if(i < cells.length) tmpPattern  += '|'
       emojiScript += '\n'
     }
-  })
+  }
 
   // hubot
   hubotScript += 'emoji: [ ' + tmpEmojis.map(function(e) { return '\'' + e + '\'' }).join(', ') + ' ]\n'
   hubotScript += 'pattern: "' + tmpPattern + '"\n'
   hubotScript += '}'
 
-  $('.js-hubot-script').val(hubotScript)
-  $('.js-emoji-script').val(emojiScript)
+  document.querySelector('.js-hubot-script').value = hubotScript
+  document.querySelector('.js-emoji-script').value = emojiScript
 }
 
 function toggleFacebox (toggle) {
-  $('.facebox, .backdrop').toggle(toggle)
+  document.querySelector('.facebox').hidden = !toggle
+  document.querySelector('.backdrop').hidden = !toggle
 }
 
 // helpers
 function setEmojiBackground (target, emoji) {
-  var emoji = emoji.replace(/:/g, '')
-  target.css('background-image', 'url("emojis/' + emoji + '.png")')
+  target.setAttribute('data-emoji', emoji)
 }
 
 function resetAll () {
-  setEmojiBackground($('.cell.painted'), 'white_large_square')
-  $('.cell.painted').removeClass('painted').attr('data-emoji', ':white_large_square:')
+  for (var cell of document.querySelectorAll('.cell.painted')) {
+    setEmojiBackground(cell, startEmoji)
+    cell.classList.remove('painted')
+    cell.setAttribute('data-emoji', startEmoji)
+  }
+}
+
+function findEmojiCode (char) {
+  const code = Object.keys(simpleMapEmoji).filter(k => simpleMapEmoji[k] == char)[0]
+  return code ? `:${code}:` : ''
 }

@@ -12,7 +12,6 @@
       ga('send', 'pageview');
     </script>
     <link href="images/fav.png" rel="shortcut icon">
-    <link href="assets/global.css" rel="stylesheet" type="text/css" />
     <link href="assets/emoji.css" rel="stylesheet" type="text/css" />
     <link href="assets/style.css" rel="stylesheet" type="text/css" />
     <!-- - -->
@@ -45,8 +44,7 @@
           Emoji paint
           <a href="#" class="js-bucketfy bucketfy"> ⬌</a>
         </label>
-        <input id="paint" class="js-paint js-auto-emoji" type="text" value=":star:">
-        <div class="js-paint-preview paint-preview"></div>
+        <input id="paint" class="js-paint js-auto-emoji" type="text" value="⭐">
       </div>
       <div class="tool-set">
         <label>Done?</label>
@@ -59,9 +57,9 @@
     <div class="js-grid grid">
     </div>
 
-    <div class="facebox hidden">
-      <input name="script" id="emoji-script" type="radio" class="hidden" checked>
-      <input name="script" id="hubot-script" type="radio" class="hidden">
+    <div class="facebox" hidden>
+      <input name="script" id="emoji-script" type="radio" checked hidden>
+      <input name="script" id="hubot-script" type="radio" hidden>
       <label for="emoji-script" class="button e">Emoji text</label>
       <label for="hubot-script" class="button h">Hubot Script</label>
 
@@ -69,7 +67,7 @@
       <textarea class="js-emoji-script emoji-script"></textarea>
 
     </div>
-    <div class="backdrop hidden"></div>
+    <div class="backdrop" hidden></div>
 
   </body>
 </html>

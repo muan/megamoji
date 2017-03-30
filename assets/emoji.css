@@ -9,12 +9,9 @@
   margin-top: 3px; }
   .emoji-container .emoji {
     cursor: pointer;
-    padding: 5px;
-    border-radius: 3px;
-    border-bottom: 1px solid #ddd; }
-    .emoji-container .emoji img {
-      width: 20px;
-      margin-right: 5px;
-      vertical-align: middle; }
+    padding: 8px;
+    border-radius: 3px; }
     .emoji-container .emoji:hover {
-      font-weight: bold; }
+      color: #000; }
+
+/*# sourceMappingURL=emoji.css.map */

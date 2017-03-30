@@ -12,10 +12,9 @@ $(document).on('focus', 'input', function(e) {
 function prepareEmoji () {
   $('body').append('<div class="emoji-container js-emoji-container">')
 
-  $.getJSON('emojis.json', function (emojis, s) {
-    $.each(emojis, function (name, keywords) {
-      var emoji = ':'+name+':'
-      $('.js-emoji-container').append("<div class='emoji js-emoji' data-keywords='" + emoji + ", " + keywords + "'><img alt='" + emoji + "' title='" + emoji + "' src='/emojis/" + name + ".png'>" + emoji + "</div>")
+  $.getJSON('assets/emojilib/emojis.json', function (emojis, s) {
+    $.each(emojis, function (name, data) {
+      $('.js-emoji-container').append(`<div class='emoji js-emoji' data-char='${data['char']}' data-keywords='${name},  ${data['keywords']}'>${data['char']} :${name}:</div>`)
     })
   })
 }
@@ -55,7 +54,7 @@ $(document).on('focus', '.js-auto-emoji', function() {
   dropdown.css('left', $(this).offset().left)
 
   $(document).on('click', '.js-emoji', function () {
-    target.val($(this).find('img').attr('alt'))
+    target.val(this.getAttribute('data-char'))
     target.trigger('selected')
     dropdown.hide()
   })
