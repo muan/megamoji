@@ -1,3 +1,4 @@
+var trace = document.querySelector('#trace')
 var bg = document.querySelector('#bg')
 var paint = document.querySelector('#paint')
 var cols = document.querySelector('#cols')
@@ -24,11 +25,13 @@ function useEmojiData(json) {
   }
 }
 
+trace.addEventListener('change', setTraceBackground)
 cols.addEventListener('change', changeGrid)
 rows.addEventListener('change', changeGrid)
 bg.addEventListener('change', changeGrid)
 reset.addEventListener('click', function() {
   changeGrid()
+  setTraceBackground()
 })
 grid.addEventListener('mousedown', function(event) {
   clearCell = event.target.textContent !== bg.value
@@ -43,12 +46,20 @@ grid.addEventListener('mouseleave', function() {
   grid.removeEventListener('mouseover', color)
 })
 
+function setTraceBackground() {
+  var reader = new FileReader()
+  reader.onload = function (event) {
+    grid.style.backgroundImage = `url("${event.target.result}")`
+  }
+  reader.readAsDataURL(trace.files[0])
+}
+
 function changeGrid() {
   var html = ''
   for(var i = 0; i < Number(cols.value); i++) {
     for(var t = 0; t < Number(rows.value); t++) {
       html += `<div
-        class="dib flex-auto relative"
+        class="dib flex-auto o-60 relative"
         style="width: ${Math.floor((100/cols.value)*100)/100}%">
           <div style="padding-top: 100%;"></div>
           <span class="target absolute top-0 lh-solid" style="font-size: ${containerWidthInEm/cols.value}em">${bg.value}</span>
