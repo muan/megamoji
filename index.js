@@ -47,7 +47,6 @@ function changeGrid() {
         </div>`
     }
   }
-  console.log(cols.value, rows.value)
   grid.innerHTML = html
 }
 
