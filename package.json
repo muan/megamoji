@@ -1,0 +1,23 @@
+{
+  "name": "megamoji",
+  "version": "1.0.0",
+  "description": "Mega",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muan/megamoji.git"
+  },
+  "keywords": [],
+  "author": "Mu-An Chiou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/muan/megamoji/issues"
+  },
+  "homepage": "https://github.com/muan/megamoji#readme",
+  "dependencies": {
+    "emojilib": "^2.2.9"
+  }
+}
