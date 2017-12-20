@@ -18,13 +18,14 @@
     <meta content="http://megamoji.muan.co" property="og:url" />
     <meta content="Creating bigger, prettier, more exciting emoji." property="og:description" />
   </head>
-  <body class="sans-serif f6">
-    <h1 class="tc normal f4 tracked courier ttu">Megamoji</h1>
+  <body class="courier f6">
+    <h1 class="tc normal f4 tracked ttu">Megamoji</h1>
     <div class="measure mv3 center pa3 bg-near-white">
-      <label class="db">Columns<input id="cols" class="db mb3 w3" type="number" value="20" min="0"></label>
-      <label class="db">Rows<input id="rows" class="db mb3 w3" type="number" value="20" min="0"></label>
-      <label class="db">Background<input list="emoji" class="db w-100" name="bg" value="◻️" id="bg"></label>
-      <label class="db">Paint<input list="emoji" class="db w-100" name="paint" value="💜" id="paint"></label>
+      <button type="button" class="fr br0 bt-0 bl-0 br-0 bg-red white bb bw1 b--dark-red ph2 pv1 f7 courier" id="reset">Reset</button>
+      <label class="db">Columns<input id="cols" class="db mb3 mt1 w3" type="number" value="20" min="0"></label>
+      <label class="db">Rows<input id="rows" class="db mb3 mt1 w3" type="number" value="20" min="0"></label>
+      <label class="db">Background<input list="emoji" class="db mt1 w-100" name="bg" value="🌱" id="bg"></label>
+      <label class="db">Paint<input list="emoji" class="db mt1 w-100" name="paint" value="🌹" id="paint"></label>
       <datalist id="emoji"></datalist>
     </div>
     <div class="measure ba b--near-white center" id="grid" style="line-height: 0; user-select: none; -webkit-user-select: none;">

@@ -3,6 +3,7 @@ var paint = document.querySelector('#paint')
 var cols = document.querySelector('#cols')
 var rows = document.querySelector('#rows')
 var grid = document.querySelector('#grid')
+var reset = document.querySelector('#reset')
 var containerWidthInEm = 30 // .measure
 var clearCell = false
 
@@ -26,12 +27,19 @@ function useEmojiData(json) {
 cols.addEventListener('change', changeGrid)
 rows.addEventListener('change', changeGrid)
 bg.addEventListener('change', changeGrid)
+reset.addEventListener('click', function() {
+  changeGrid()
+})
 grid.addEventListener('mousedown', function(event) {
   clearCell = event.target.textContent !== bg.value
   color(event)
   grid.addEventListener('mouseover', color)
 })
 grid.addEventListener('mouseup', function() {
+  grid.removeEventListener('mouseover', color)
+})
+
+grid.addEventListener('mouseleave', function() {
   grid.removeEventListener('mouseover', color)
 })
 
