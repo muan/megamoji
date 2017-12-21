@@ -24,16 +24,18 @@
     <header><h1 class="tc normal f4 tracked ttu mv4">Megamoji V1</h1></header>
     <div class="measure center mb4 bt b--moon-gray pt4">
       <label class="db">Trace image<input id="trace" type="file" class="mb3 mt1 db"></label>
-      <label class="dib">Columns<input id="cols" class="db mb3 mt1 w3 border-box pa2 br1 ba b--moon-gray" type="number" value="20" min="0"></label> &times;
-      <label class="dib">Rows<input id="rows" class="db mb3 mt1 w3 border-box pa2 br1 ba b--moon-gray" type="number" value="20" min="0"></label>
+      <label class="dib">Columns<input id="cols" class="db mb3 mt1 w3 border-box pa2 br1 ba b--moon-gray" type="number" value="12" min="0"></label> &times;
+      <label class="dib">Rows<input id="rows" class="db mb3 mt1 w3 border-box pa2 br1 ba b--moon-gray" type="number" value="12" min="0"></label>
       <label class="db">Background<input list="emoji" class="db mt1 w-100 border-box pa2 br1 ba b--moon-gray" name="bg" value="🌱" id="bg"></label>
       <label class="db">Paint<input list="emoji" class="db mt1 w-100 border-box pa2 br1 ba b--moon-gray" name="paint" value="🌹" id="paint"></label>
       <datalist id="emoji"></datalist>
-      <div class="flex">
-        <button type="button" class="mt3 flex-auto mr3 tracked f7 dark-red bg-white grow pointer ba br1 ph3 pv2 f7 monospace" id="reset">Reset</button>
-        <button type="button" class="mt3 flex-auto mr3 tracked f7 dark-blue bg-white grow pointer ba br1 ph3 pv2 f7 monospace" id="text">Get text</button>
-        <button type="button" class="mt3 flex-auto tracked f7 dark-gray bg-white grow pointer ba br1 ph3 pv2 f7 monospace" id="megamoji">Get megamoji object</button>
+      <div class="flex mt3">
+        <button type="button" class="flex-auto mr3 tracked f7 dark-red bg-white grow pointer ba br1 ph3 pv2 f7 monospace" id="reset">Reset</button>
+        <button type="button" class="flex-auto mr3 tracked f7 dark-blue bg-white grow pointer ba br1 ph3 pv2 f7 monospace" id="text">Get text</button>
+        <button type="button" class="flex-auto tracked f7 dark-gray bg-white grow pointer ba br1 ph3 pv2 f7 monospace" id="megamoji">Get megamoji object</button>
+        <span area class="flex-auto f7 pv2 w1 tr" title="Megamoji is a GitHub internal hubot script made by @rick.">(?)</span>
       </div>
+      <textarea id="textarea" class="mt3 w-100 h4 monospace border-box pa2 br1 ba b--moon-gray" readonly hidden></textarea>
     </div>
     <div class="measure ba b--near-white center cover" id="grid" style="line-height: 0; user-select: none; -webkit-user-select: none;"></div>
     <footer class="mt4 mb5 tc f7"><a class="link dark-gray tracked" href="https://github.com/muan/megamoji">muan/megamoji</a></footer>
