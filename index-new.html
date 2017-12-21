@@ -21,9 +21,9 @@
     <style>.monospace { font-family: 'Inconsolata', monospace; }</style>
   </head>
   <body class="f6 monospace">
-    <h1 class="tc normal f4 tracked ttu">Megamoji V1</h1>
-    <div class="measure mv3 center pa3 bg-near-white">
-      <label class="db">Trace<input id="trace" type="file" class="mb3 mt1 db"></label>
+    <header><h1 class="tc normal f4 tracked ttu mv4">Megamoji V1</h1></header>
+    <div class="measure center mb4 bt b--moon-gray pt4">
+      <label class="db">Trace image<input id="trace" type="file" class="mb3 mt1 db"></label>
       <label class="dib">Columns<input id="cols" class="db mb3 mt1 w3 border-box pa2 br1 ba b--moon-gray" type="number" value="20" min="0"></label> &times;
       <label class="dib">Rows<input id="rows" class="db mb3 mt1 w3 border-box pa2 br1 ba b--moon-gray" type="number" value="20" min="0"></label>
       <label class="db">Background<input list="emoji" class="db mt1 w-100 border-box pa2 br1 ba b--moon-gray" name="bg" value="🌱" id="bg"></label>
@@ -35,8 +35,8 @@
         <button type="button" class="mt3 flex-auto tracked f7 dark-gray bg-white grow pointer ba br1 ph3 pv2 f7 monospace" id="megamoji">Get megamoji object</button>
       </div>
     </div>
-    <div class="measure ba b--near-white center cover" id="grid" style="line-height: 0; user-select: none; -webkit-user-select: none;">
-    </div>
+    <div class="measure ba b--near-white center cover" id="grid" style="line-height: 0; user-select: none; -webkit-user-select: none;"></div>
+    <footer class="mt4 mb5 tc f7"><a class="link dark-gray tracked" href="https://github.com/muan/megamoji">muan/megamoji</a></footer>
     <script src="index.js" type="text/javascript"></script>
   </body>
 </html>
