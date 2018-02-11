@@ -11,7 +11,6 @@ var textarea = document.querySelector('#textarea')
 var emojiData = null
 
 var containerWidthInEm = 30 // .measure
-var clearCell = false
 
 fetch('./node_modules/emojilib/emojis.json').then(function(res) {
   return res.json()
@@ -40,17 +39,17 @@ reset.addEventListener('click', function() {
   setTraceBackground()
   textarea.hidden = true
 })
-grid.addEventListener('mousedown', function(event) {
-  clearCell = event.target.textContent !== bg.value
-  color(event)
-  grid.addEventListener('mouseover', color)
-})
-grid.addEventListener('mouseup', function() {
-  grid.removeEventListener('mouseover', color)
-})
-
-grid.addEventListener('mouseleave', function() {
-  grid.removeEventListener('mouseover', color)
+grid.addEventListener('click', function(event) {
+  var cell = event.target
+  // If you used the keyboard instead of clicking, then the target
+  // is actually the button, not the div.
+  if (cell.localName === 'button') {
+    cell = cell.children[0]
+  }
+  var clearCell = cell.textContent !== bg.value
+  if (cell.classList.contains('target')) {
+    cell.textContent = clearCell ? bg.value : paint.value
+  }
 })
 
 text.addEventListener('click', function() {
@@ -97,21 +96,15 @@ function changeGrid() {
   var html = ''
   for(var i = 0; i < Number(cols.value); i++) {
     for(var t = 0; t < Number(rows.value); t++) {
-      html += `<div
+      html += `<button
         class="dib flex-auto relative"
         style="width: ${Math.floor((100/cols.value)*100)/100}%">
-          <div style="padding-top: 100%;"></div>
-          <span class="target absolute top-0 lh-solid" style="font-size: ${containerWidthInEm/cols.value}em">${bg.value}</span>
-        </div>`
+          <div class="target lh-solid" style="font-size: ${containerWidthInEm/cols.value}em">${bg.value}</div>
+        </button>`
     }
   }
+  //grid.style.fontSize =`${containerWidthInEm/cols.value}em`
   grid.innerHTML = html
 }
 
 changeGrid()
-
-function color(event) {
-  if (event.target.classList.contains('target')) {
-    event.target.textContent = clearCell ? bg.value : paint.value
-  }
-}
