@@ -19,6 +19,7 @@
     <meta content="http://megamoji.muan.co" property="og:url" />
     <meta content="Creating bigger, prettier, more exciting emoji." property="og:description" />
     <style>.monospace { font-family: 'Inconsolata', monospace; }</style>
+    <script src="//twemoji.maxcdn.com/2/twemoji.min.js?2.4"></script>
   </head>
   <body class="mw-100 pa3 f6 monospace">
     <header><h1 class="tc normal f4 tracked ttu mv4">Megamoji V1</h1></header>
@@ -26,8 +27,12 @@
       <label class="db">Trace image<input id="trace" type="file" class="mb3 mt1 db"></label>
       <label class="dib">Columns<input id="cols" class="db mb3 mt1 w3 border-box pa2 br1 ba b--moon-gray" type="number" value="12" min="0"></label> &times;
       <label class="dib">Rows<input id="rows" class="db mb3 mt1 w3 border-box pa2 br1 ba b--moon-gray" type="number" value="12" min="0"></label>
-      <label class="db">Background<input list="emoji" class="db mt1 w-100 border-box pa2 br1 ba b--moon-gray" name="bg" value="🌱" id="bg"></label>
-      <label class="db">Paint<input list="emoji" class="db mt1 w-100 border-box pa2 br1 ba b--moon-gray" name="paint" value="🌹" id="paint"></label>
+      <br>
+      <label class="dib"><input id="native" class="mb3 mt1 mr2 border-box pa2 br1 ba b--moon-gray" name="emoji" type="radio" checked>Native emoji</label>
+      <label class="dib ml3"><input id="twemoji" class="mb3 mt1 mr2 border-box pa2 br1 ba b--moon-gray" name="emoji" type="radio">Twitter emoji</label>
+      <br>
+      <label class="dib">Background<input list="emoji" class="db mt1 w-100 border-box pa2 br1 ba b--moon-gray" name="bg" value="🌱" id="bg"></label>
+      <label class="dib">Paint<input list="emoji" class="db mt1 w-100 border-box pa2 br1 ba b--moon-gray" name="paint" value="🌹" id="paint"></label>
       <datalist id="emoji"></datalist>
       <div class="flex mt3">
         <button type="button" class="flex-auto mr3 tracked f7 dark-red bg-white grow pointer ba br1 ph3 pv2 f7 monospace" id="reset">Reset</button>

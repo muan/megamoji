@@ -8,6 +8,9 @@ var reset = document.querySelector('#reset')
 var text = document.querySelector('#text')
 var megamoji = document.querySelector('#megamoji')
 var textarea = document.querySelector('#textarea')
+var twemojiButton = document.querySelector('#twemoji');
+var nativeButton = document.querySelector('#native');
+
 var emojiData = null
 
 var containerWidthInEm = 30 // .measure
@@ -34,6 +37,17 @@ trace.addEventListener('change', setTraceBackground)
 cols.addEventListener('change', changeGrid)
 rows.addEventListener('change', changeGrid)
 bg.addEventListener('change', changeGrid)
+nativeButton.addEventListener('change', function() {
+  // Undo all the twemojifying.
+  var els = grid.querySelectorAll('.target');
+  for (var i = 0; i < els.length; i++) {
+    // Twemoji inserts an image with the original emoji as an alt.
+    els[i].textContent = els[i].children[0].alt;
+  }
+})
+twemojiButton.addEventListener('change', function() {
+  twemoji.parse(grid);
+})
 reset.addEventListener('click', function() {
   changeGrid()
   setTraceBackground()
