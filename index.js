@@ -8,10 +8,12 @@ var reset = document.querySelector('#reset')
 var text = document.querySelector('#text')
 var megamoji = document.querySelector('#megamoji')
 var textarea = document.querySelector('#textarea')
+var twemojiButton = document.querySelector('#twemoji')
+var nativeButton = document.querySelector('#native')
+
 var emojiData = null
 
 var containerWidthInEm = 30 // .measure
-var clearCell = false
 
 fetch('./node_modules/emojilib/emojis.json').then(function(res) {
   return res.json()
@@ -20,12 +22,25 @@ fetch('./node_modules/emojilib/emojis.json').then(function(res) {
 function useEmojiData(json) {
   emojiData = json
   var emojiDataList = document.querySelector('#emoji')
+
   for(var key in json) {
     if(json[key]['category'] === '_custom') continue
     emojiDataList.insertAdjacentHTML('beforeend', `<option value="${json[key]['char']}"}">${key}</option>`)
     if(json[key]['fitzpatrick_scale']) {
+      // Okay, so here's a thing. Emoji math is weird:
+      // For plain skintone emoji like 🙌, 🙌 + 🏻 always equals 🙌🏻
+      // For complex skintone emoji that also have genders, 🙇‍♀️ + 🏻 does not join.
+      // Thankfully, array spreads can blow up the emoji for us, and we can
+      // replace the skintone in the emoji sequence directly.
+      const blownUp = [...json[key]['char']]
+
+      // Add a placeholder for where the skintone goes. Yeah, it seems to go
+      // here and yeah, it might break in the future.
+      blownUp.splice(1, 0, '');
       for(const skintone of ["🏻", "🏼", "🏽", "🏾", "🏿"]) {
-        emojiDataList.insertAdjacentHTML('beforeend', `<option value="${json[key]['char'] + skintone}">${key}</option>`)
+        blownUp[1] = skintone
+        const withSkintone = blownUp.join('')
+        emojiDataList.insertAdjacentHTML('beforeend', `<option value="${withSkintone}">${key}</option>`)
       }
     }
   }
@@ -35,28 +50,52 @@ trace.addEventListener('change', setTraceBackground)
 cols.addEventListener('change', changeGrid)
 rows.addEventListener('change', changeGrid)
 bg.addEventListener('change', changeGrid)
+nativeButton.addEventListener('change', function() {
+  // Undo all the twemojifying.
+  var els = grid.querySelectorAll('.target')
+  for (var i = 0; i < els.length; i++) {
+    // Twemoji inserts an image with the original emoji as an alt.
+    els[i].textContent = els[i].children[0].alt
+  }
+})
+twemojiButton.addEventListener('change', function() {
+  twemoji.parse(grid)
+})
 reset.addEventListener('click', function() {
   changeGrid()
   setTraceBackground()
   textarea.hidden = true
+  if (twemojiButton.checked) {
+    twemoji.parse(grid)
+  }
 })
-grid.addEventListener('mousedown', function(event) {
-  clearCell = event.target.textContent !== bg.value
-  color(event)
-  grid.addEventListener('mouseover', color)
-})
-grid.addEventListener('mouseup', function() {
-  grid.removeEventListener('mouseover', color)
-})
+grid.addEventListener('click', function(event) {
+  var cell = event.target
 
-grid.addEventListener('mouseleave', function() {
-  grid.removeEventListener('mouseover', color)
+  // If you used the keyboard instead of clicking, then the target
+  // is actually the button, not the div.
+  if (cell.localName === 'button') {
+    cell = cell.children[0]
+  }
+
+  var clearCell
+  if (twemojiButton.checked) {
+    // In Twemoji land, just replace the existing image with the twemoji image
+    clearCell = cell.alt !== bg.value
+    var newImg = clearCell ? twemoji.parse(bg.value) : twemoji.parse(paint.value)
+    cell.parentElement.innerHTML = newImg
+  } else {
+    clearCell = cell.textContent !== bg.value
+    cell.textContent = clearCell ? bg.value : paint.value
+  }
 })
 
 text.addEventListener('click', function() {
+  var useTwemoji = twemojiButton.checked
   var result = ''
   for(var i = 0; i < rows.value * cols.value; i++) {
-    result += grid.children[i].textContent.trim()
+    result += useTwemoji ? grid.children[i].querySelector('img').alt
+                         : grid.children[i].textContent.trim()
     if (i % cols.value === cols.value - 1 && i !== rows.value * cols.value - 1) result += '\n'
   }
   fillTextarea(result)
@@ -64,8 +103,10 @@ text.addEventListener('click', function() {
 
 megamoji.addEventListener('click', function() {
   var result = {emoji: [], pattern: ""}
+  var useTwemoji = twemojiButton.checked
   for(var i = 0; i < rows.value * cols.value; i++) {
-    var emoji = grid.children[i].textContent.trim()
+    var emoji = useTwemoji ? grid.children[i].querySelector('img').alt
+                           : grid.children[i].textContent.trim()
     var text = `:${Object.keys(emojiData).filter(function(key) { return emojiData[key]['char'] === emoji })[0]}:`
 
     if (result['emoji'].indexOf(text) < 0) {
@@ -97,21 +138,14 @@ function changeGrid() {
   var html = ''
   for(var i = 0; i < Number(cols.value); i++) {
     for(var t = 0; t < Number(rows.value); t++) {
-      html += `<div
-        class="dib flex-auto relative"
+      html += `<button
+        class="dib flex-auto relative pa0 bn bg-transparent"
         style="width: ${Math.floor((100/cols.value)*100)/100}%">
-          <div style="padding-top: 100%;"></div>
-          <span class="target absolute top-0 lh-solid" style="font-size: ${containerWidthInEm/cols.value}em">${bg.value}</span>
-        </div>`
+          <div class="target lh-solid" style="font-size: ${containerWidthInEm/cols.value}em">${bg.value}</div>
+        </button>`
     }
   }
   grid.innerHTML = html
 }
 
 changeGrid()
-
-function color(event) {
-  if (event.target.classList.contains('target')) {
-    event.target.textContent = clearCell ? bg.value : paint.value
-  }
-}
