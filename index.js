@@ -8,8 +8,8 @@ var reset = document.querySelector('#reset')
 var text = document.querySelector('#text')
 var megamoji = document.querySelector('#megamoji')
 var textarea = document.querySelector('#textarea')
-var twemojiButton = document.querySelector('#twemoji');
-var nativeButton = document.querySelector('#native');
+var twemojiButton = document.querySelector('#twemoji')
+var nativeButton = document.querySelector('#native')
 
 var emojiData = null
 
@@ -39,10 +39,10 @@ rows.addEventListener('change', changeGrid)
 bg.addEventListener('change', changeGrid)
 nativeButton.addEventListener('change', function() {
   // Undo all the twemojifying.
-  var els = grid.querySelectorAll('.target');
+  var els = grid.querySelectorAll('.target')
   for (var i = 0; i < els.length; i++) {
     // Twemoji inserts an image with the original emoji as an alt.
-    els[i].textContent = els[i].children[0].alt;
+    els[i].textContent = els[i].children[0].alt
   }
 })
 twemojiButton.addEventListener('change', function() {
@@ -55,11 +55,13 @@ reset.addEventListener('click', function() {
 })
 grid.addEventListener('click', function(event) {
   var cell = event.target
+
   // If you used the keyboard instead of clicking, then the target
   // is actually the button, not the div.
   if (cell.localName === 'button') {
     cell = cell.children[0]
   }
+
   var clearCell = cell.textContent !== bg.value
   if (cell.classList.contains('target')) {
     cell.textContent = clearCell ? bg.value : paint.value
