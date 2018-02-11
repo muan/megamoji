@@ -62,8 +62,14 @@ grid.addEventListener('click', function(event) {
     cell = cell.children[0]
   }
 
-  var clearCell = cell.textContent !== bg.value
-  if (cell.classList.contains('target')) {
+  var clearCell;
+  if (twemojiButton.checked) {
+    // In Twemoji land, just replace the existing image with the twemoji image
+    clearCell = cell.alt !== bg.value
+    var newImg = clearCell ? twemoji.parse(bg.value) : twemoji.parse(paint.value)
+    cell.parentElement.innerHTML = newImg
+  } else {
+    clearCell = cell.textContent !== bg.value
     cell.textContent = clearCell ? bg.value : paint.value
   }
 })
