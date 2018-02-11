@@ -97,7 +97,7 @@ function changeGrid() {
   for(var i = 0; i < Number(cols.value); i++) {
     for(var t = 0; t < Number(rows.value); t++) {
       html += `<button
-        class="dib flex-auto relative"
+        class="dib flex-auto relative pa0 bn bg-transparent"
         style="width: ${Math.floor((100/cols.value)*100)/100}%">
           <div class="target lh-solid" style="font-size: ${containerWidthInEm/cols.value}em">${bg.value}</div>
         </button>`
