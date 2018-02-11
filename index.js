@@ -22,12 +22,25 @@ fetch('./node_modules/emojilib/emojis.json').then(function(res) {
 function useEmojiData(json) {
   emojiData = json
   var emojiDataList = document.querySelector('#emoji')
+
   for(var key in json) {
     if(json[key]['category'] === '_custom') continue
     emojiDataList.insertAdjacentHTML('beforeend', `<option value="${json[key]['char']}"}">${key}</option>`)
     if(json[key]['fitzpatrick_scale']) {
+      // Okay, so here's a thing. Emoji math is weird:
+      // For plain skintone emoji like 🙌, 🙌 + 🏻 always equals 🙌🏻
+      // For complex skintone emoji that also have genders, 🙇‍♀️ + 🏻 does not join.
+      // Thankfully, array spreads can blow up the emoji for us, and we can
+      // replace the skintone in the emoji sequence directly.
+      const blownUp = [...json[key]['char']]
+
+      // Add a placeholder for where the skintone goes. Yeah, it seems to go
+      // here and yeah, it might break in the future.
+      blownUp.splice(1, 0, '');
       for(const skintone of ["🏻", "🏼", "🏽", "🏾", "🏿"]) {
-        emojiDataList.insertAdjacentHTML('beforeend', `<option value="${json[key]['char'] + skintone}">${key}</option>`)
+        blownUp[1] = skintone
+        const withSkintone = blownUp.join('')
+        emojiDataList.insertAdjacentHTML('beforeend', `<option value="${withSkintone}">${key}</option>`)
       }
     }
   }
@@ -132,7 +145,6 @@ function changeGrid() {
         </button>`
     }
   }
-  //grid.style.fontSize =`${containerWidthInEm/cols.value}em`
   grid.innerHTML = html
 }
 
