@@ -46,12 +46,15 @@ nativeButton.addEventListener('change', function() {
   }
 })
 twemojiButton.addEventListener('change', function() {
-  twemoji.parse(grid);
+  twemoji.parse(grid)
 })
 reset.addEventListener('click', function() {
   changeGrid()
   setTraceBackground()
   textarea.hidden = true
+  if (twemojiButton.checked) {
+    twemoji.parse(grid)
+  }
 })
 grid.addEventListener('click', function(event) {
   var cell = event.target
@@ -62,7 +65,7 @@ grid.addEventListener('click', function(event) {
     cell = cell.children[0]
   }
 
-  var clearCell;
+  var clearCell
   if (twemojiButton.checked) {
     // In Twemoji land, just replace the existing image with the twemoji image
     clearCell = cell.alt !== bg.value
@@ -75,9 +78,11 @@ grid.addEventListener('click', function(event) {
 })
 
 text.addEventListener('click', function() {
+  var useTwemoji = twemojiButton.checked
   var result = ''
   for(var i = 0; i < rows.value * cols.value; i++) {
-    result += grid.children[i].textContent.trim()
+    result += useTwemoji ? grid.children[i].querySelector('img').alt
+                         : grid.children[i].textContent.trim()
     if (i % cols.value === cols.value - 1 && i !== rows.value * cols.value - 1) result += '\n'
   }
   fillTextarea(result)
@@ -85,8 +90,10 @@ text.addEventListener('click', function() {
 
 megamoji.addEventListener('click', function() {
   var result = {emoji: [], pattern: ""}
+  var useTwemoji = twemojiButton.checked
   for(var i = 0; i < rows.value * cols.value; i++) {
-    var emoji = grid.children[i].textContent.trim()
+    var emoji = useTwemoji ? grid.children[i].querySelector('img').alt
+                           : grid.children[i].textContent.trim()
     var text = `:${Object.keys(emojiData).filter(function(key) { return emojiData[key]['char'] === emoji })[0]}:`
 
     if (result['emoji'].indexOf(text) < 0) {
