@@ -22,7 +22,7 @@ function useEmojiData(json) {
   var emojiDataList = document.querySelector('#emoji')
   for(var key in json) {
     if(json[key]['category'] === '_custom') continue
-    emojiDataList.insertAdjacentHTML('beforeend', `<option value="${json[key]['char']}"}">${key}</option>`)
+    emojiDataList.insertAdjacentHTML('beforeend', `<option value="${json[key]['char']}">${key}</option>`)
     if(json[key]['fitzpatrick_scale']) {
       for(const skintone of ["🏻", "🏼", "🏽", "🏾", "🏿"]) {
         emojiDataList.insertAdjacentHTML('beforeend', `<option value="${json[key]['char'] + skintone}">${key}</option>`)
